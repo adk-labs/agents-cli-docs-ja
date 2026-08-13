@@ -49,6 +49,9 @@ dependencies = [
     "google-cloud-logging",
     "google-cloud-bigquery",
     "a2a-sdk",
+    "pandas",
+    "tabulate",
+    "tqdm",
 ]
 
 [project.scripts]
