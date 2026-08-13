@@ -28,3 +28,6 @@ dependencies = [
 
 [project.scripts]
 agents = "google.agents.cli.main:cli"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/google"]
