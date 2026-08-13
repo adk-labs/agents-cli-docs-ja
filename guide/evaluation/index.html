@@ -1,0 +1,2182 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ADKエージェント開発ライフサイクル全体を統合管理するCLI">
+      
+      
+      
+      
+        <link rel="prev" href="../templates/">
+      
+      
+        <link rel="next" href="../deployment/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo_sm.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>評価ガイド - agents-cli (日本語ドキュメント)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans JP";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../.." title="agents-cli (日本語ドキュメント)" class="md-header__button md-logo" aria-label="agents-cli (日本語ドキュメント)" data-md-component="logo">
+      
+  <img src="../../assets/logo_sm.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            agents-cli (日本語ドキュメント)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              評価ガイド
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/adk-labs/agents-cli-docs-ja" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.01 8.01 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27s-1.36.09-2 .27c-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8"/></svg>
+  </div>
+  <div class="md-source__repository">
+    adk-labs/agents-cli-docs-ja
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../getting-started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ガイド
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  リファレンス
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="agents-cli (日本語ドキュメント)" class="md-nav__button md-logo" aria-label="agents-cli (日本語ドキュメント)" data-md-component="logo">
+      
+  <img src="../../assets/logo_sm.png" alt="logo">
+
+    </a>
+    agents-cli (日本語ドキュメント)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/adk-labs/agents-cli-docs-ja" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.01 8.01 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27s-1.36.09-2 .27c-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8"/></svg>
+  </div>
+  <div class="md-source__repository">
+    adk-labs/agents-cli-docs-ja
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ガイド
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ガイド
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    概要
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ライフサイクル
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    チュートリアル: 最初のエージェントを構築
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hands-on-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    チュートリアル: 手動ワークフロー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ユースケース
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    認証
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開発
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    開発
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開発ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    プロジェクト構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    エージェントテンプレート
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    評価
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    評価
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    評価ガイド
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    評価ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最初の評価を実行する
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        評価ケースの記述とメトリクスの選択
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="評価ケースの記述とメトリクスの選択">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        利用可能なメトリクスリファレンス
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="利用可能なメトリクスリファレンス">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一般的なメトリクス一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eval_configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        評価設定 (eval_config.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一般的なシナリオのクイックリファレンス
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eval-fix-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        評価・修正のループ (Eval-Fix Loop)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generate-grade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate と grade を超えて
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="generate と grade を超えて">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agents-cli-eval-dataset-synthesize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        agents-cli eval dataset synthesize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agents-cli-eval-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        agents-cli eval compare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agents-cli-eval-analyze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        agents-cli eval analyze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agents-cli-eval-metric-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        agents-cli eval metric list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agents-cli-eval-optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        agents-cli eval optimize
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    デプロイと運用
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    デプロイと運用
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    デプロイ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cicd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD & 本番運用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../observability/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    オブザーバビリティ
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    オブザーバビリティ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../observability/cloud-trace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud Trace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../observability/bq-agent-analytics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BigQuery プラグイン
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リファレンス
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    リファレンス
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI仕様
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    スキル一覧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このプロジェクトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/from-agent-starter-pack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Starter Pack からの移行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/eval-dataset-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    評価データセットの移行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最初の評価を実行する
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        評価ケースの記述とメトリクスの選択
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="評価ケースの記述とメトリクスの選択">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        利用可能なメトリクスリファレンス
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="利用可能なメトリクスリファレンス">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一般的なメトリクス一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eval_configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        評価設定 (eval_config.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一般的なシナリオのクイックリファレンス
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eval-fix-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        評価・修正のループ (Eval-Fix Loop)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generate-grade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate と grade を超えて
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="generate と grade を超えて">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agents-cli-eval-dataset-synthesize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        agents-cli eval dataset synthesize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agents-cli-eval-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        agents-cli eval compare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agents-cli-eval-analyze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        agents-cli eval analyze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agents-cli-eval-metric-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        agents-cli eval metric list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agents-cli-eval-optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        agents-cli eval optimize
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="ナビゲーション" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    ホーム
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../getting-started/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    ガイド
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    評価
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">評価ガイド<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>構造化された評価を実行して、エージェントが適切なツールを呼び出し、高品質なレスポンスを生成し、エッジケースを適切に処理できるか確認します。内部では、評価の採点に <a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/optimize/evaluation/agent-evaluation">Gemini Enterprise Agent Platform GenAI Eval SDK</a> を使用しています。</p>
+<div class="admonition note">
+<p class="admonition-title">以前の agents-cli からアップグレードしますか？</p>
+<p>以前のバージョンによる <code>tests/eval/evalsets/*.evalset.json</code> ファイルがプロジェクト内に残っている場合は、新しいフォーマットについて <a href="../../reference/eval-dataset-migration/">評価データセットの移行</a> を参照してください。</p>
+</div>
+<hr />
+<h2 id="_2">最初の評価を実行する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>プロジェクトには、<code>tests/eval/datasets/basic-dataset.json</code> のデフォルトデータセットと <code>tests/eval/eval_config.yaml</code> のメトリクス設定が含まれています。以下を実行してください:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>generate
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>grade
+</code></pre></div>
+<p>出力には、設定されたメトリクスに対する各評価ケースのスコアが表示されます。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># カスタムデータセットおよび異なるメトリクスで実行</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>generate<span class="w"> </span>--dataset<span class="w"> </span>tests/eval/datasets/custom-dataset.json<span class="w"> </span>--output<span class="w"> </span>custom_traces/
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>grade<span class="w"> </span>--metrics<span class="w"> </span>general_quality<span class="w"> </span>--traces<span class="w"> </span>custom_traces/
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># ローカルでの実行ではなく、デプロイ済みエージェントを評価</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>generate<span class="w"> </span>--url<span class="w"> </span>https://my-agent.run.app<span class="w"> </span>--app-name<span class="w"> </span>app
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>grade
+</code></pre></div>
+<hr />
+<h2 id="_3">評価ケースの記述とメトリクスの選択<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>評価ケースのスキーマおよび利用可能なメトリクスの詳細については、<a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/optimize/evaluation/agent-evaluation">Gemini Enterprise Agent Platform 評価ドキュメント</a> を参照してください。</p>
+<h3 id="_4">利用可能なメトリクスリファレンス<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>エージェントの機能やタスクに応じて、豊富な組込メトリクスから選択できます。利用可能なメトリクスの完全なリストを表示するには、以下を実行します:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>metric<span class="w"> </span>list
+</code></pre></div>
+<h4 id="_5">一般的なメトリクス一覧<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>よく使われる組み込みメトリクス ID の短いリファレンスです。説明付きの完全なセットについては <code>agents-cli eval metric list</code> を使用してください。</p>
+<table>
+<thead>
+<tr>
+<th>メトリクス ID</th>
+<th>採点対象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>general_quality</code></td>
+<td>自動生成されたコンテンツベースの基準による全体的なレスポンス品質。非エージェント評価の推奨される開始点。</td>
+</tr>
+<tr>
+<td><code>text_quality</code></td>
+<td>言語的側面: 流暢さ、一貫性、文法。</td>
+</tr>
+<tr>
+<td><code>instruction_following</code></td>
+<td>レスポンスが特定の制約や指示にどれだけ従っているか。</td>
+</tr>
+<tr>
+<td><code>tool_use_quality</code></td>
+<td>ツールの選択、パラメータの精度、およびステップ順序の正確さ（単一ターン）。</td>
+</tr>
+<tr>
+<td><code>multi_turn_tool_use_quality</code></td>
+<td>複数ターンの会話におけるツール呼び出しの技術的およびセマンティックな正確さ。</td>
+</tr>
+<tr>
+<td><code>multi_turn_trajectory_quality</code></td>
+<td>ターンにわたるシーケンシャルロジック、効率性、およびエラー回復の堅牢性。</td>
+</tr>
+<tr>
+<td><code>multi_turn_task_success</code></td>
+<td>複数ターンの会話全体でユーザーの目標が達成されたかどうか。</td>
+</tr>
+<tr>
+<td><code>final_response_quality</code></td>
+<td>最終レスポンスと中間ツール使用状況の包括的な評価。</td>
+</tr>
+<tr>
+<td><code>final_response_reference_free</code></td>
+<td>参照回答なしの最終レスポンス品質（カスタムルーブリックが必要）。</td>
+</tr>
+<tr>
+<td><code>final_response_match</code></td>
+<td>エージェントの最終レスポンスを提供されたゴールデン参照回答と比較。</td>
+</tr>
+<tr>
+<td><code>hallucination</code></td>
+<td>レスポンスをアトミックな主張に分割し、ツールから返されたコンテキストに対してそれぞれを検証。</td>
+</tr>
+<tr>
+<td><code>grounding</code></td>
+<td>提供されたコンテキストに対する事実性と一貫性。</td>
+</tr>
+<tr>
+<td><code>safety</code></td>
+<td>セーフティポリシー（PII、ヘイトスピーチ、危険なコンテンツ、嫌がらせ、性的コンテンツ）への準拠。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="eval_configyaml">評価設定 (<code>eval_config.yaml</code>)<a class="headerlink" href="#eval_configyaml" title="Permanent link">&para;</a></h3>
+<p><code>eval_config.yaml</code> ファイルは、実行するメトリクスを指定し、評価の採点に使用するカスタムメトリクスを定義します。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">metrics_to_run</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">response_under_500_chars</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nt">custom_metrics</span><span class="p">:</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">response_under_500_chars</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="nt">custom_function</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="no">def evaluate(instance: dict) -&gt; dict:</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">          </span><span class="no">response = instance.get(&quot;response&quot;) or {}</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">          </span><span class="no">text = &quot;&quot;.join(</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">              </span><span class="no">p.get(&quot;text&quot;, &quot;&quot;) for p in (response.get(&quot;parts&quot;) or []) if p.get(&quot;text&quot;)</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">          </span><span class="no">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">          </span><span class="no">passed = len(text) &lt;= 500</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">          </span><span class="no">return {</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">              </span><span class="no">&quot;score&quot;: 1.0 if passed else 0.0,</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">              </span><span class="no">&quot;explanation&quot;: f&quot;Final response is {len(text)} chars (limit 500).&quot;,</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">          </span><span class="no">}</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">response_quality_rubric</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="nt">prompt_template</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">      </span><span class="no">Rate the agent&#39;s response 1-5 for helpfulness and accuracy.</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">      </span><span class="no">Prompt: {prompt}</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">      </span><span class="no">Final response: {response}</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">      </span><span class="no">Full trace (for tool-call and reasoning context): {agent_data}</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">      </span><span class="no">Return JSON: {&quot;score&quot;: &lt;1|2|3|4|5&gt;, &quot;explanation&quot;: &quot;&lt;reason&gt;&quot;}</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="nt">judge_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gemini-3.6-flash</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">    </span><span class="nt">judge_model_sampling_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+</code></pre></div>
+<p>各カスタムメトリクスは、<strong>コード実行メトリクス</strong> または <strong>LLM-as-a-Judge メトリクス</strong> (<code>LLMMetric</code>) スキーマのいずれかに準拠している必要があります:
+- <strong>コード実行メトリクス</strong>: 評価のためにカスタム Python コードを実行する際に使用します。<code>name</code> と <code>custom_function</code> (<code>def evaluate(instance):</code> シグネチャを含む) が必要です。デフォルトでは、関数は <strong>CLI プロセス内でローカルに</strong> 実行されます — GCP プロジェクトやリージョンは不要ですが、ユーザー提供のコードは CLI の権限で実行されます。GCP プロジェクトおよびリージョンの設定が必要な Vertex AI のサンドボックス環境である <code>CodeExecutionMetric</code> (サーバー側) を選択するには、<code>"execution": "remote"</code> を追加します。
+- <strong>LLM-as-a-Judge メトリクス</strong>: LLM ジャッジを使用してレスポンスを評価する際に使用します。<code>name</code> と <code>prompt_template</code> が必要です。オプション項目には <code>rubric_group_name</code>、<code>judge_model</code>（例: <code>gemini-3.6-flash</code>）、および <code>judge_model_sampling_count</code>（<code>1</code> 〜 <code>32</code>）が含まれます。</p>
+<h3 id="_6">一般的なシナリオのクイックリファレンス<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>カスタム関数ツールを持つエージェント</strong> — <code>tool_use_quality</code>（単一ターン用）または <code>multi_turn_tool_use_quality</code> + <code>multi_turn_trajectory_quality</code>（複数ターン用）を使用します。</li>
+<li><strong>RAG エージェント</strong> — <code>grounding</code> + <code>hallucination</code> + <code>safety</code> を使用します。</li>
+<li><strong>会話型アシスタント</strong> — <code>general_quality</code> または <code>multi_turn_general_quality</code> を使用します。</li>
+<li><strong>目標指向型エージェント</strong> — <code>multi_turn_task_success</code> を使用します。</li>
+</ul>
+<hr />
+<h2 id="eval-fix-loop">評価・修正のループ (Eval-Fix Loop)<a class="headerlink" href="#eval-fix-loop" title="Permanent link">&para;</a></h2>
+<p>評価は反復的なプロセスです。エージェントが安定して合格するまでに 5〜10 回以上のサイクルが必要です。</p>
+<ol>
+<li><strong>最も重要な動作をカバーする 1〜2 個のコア評価ケースを記述する</strong></li>
+<li><strong>実行</strong>: <code>agents-cli eval generate</code> を実行し、続いて <code>agents-cli eval grade</code> を実行</li>
+<li><strong>結果を確認する</strong> — どのケースが失敗し、その理由は何か</li>
+<li><strong>修正</strong> — エージェントの指示、ツール、またはロジックを調整</li>
+<li><strong>再実行</strong>: <code>agents-cli eval generate</code> と <code>agents-cli eval grade</code> を実行</li>
+<li><strong>拡張</strong> — コアケースが合格したら、エッジケースや新しいシナリオを追加</li>
+</ol>
+<hr />
+<h2 id="generate-grade"><code>generate</code> と <code>grade</code> を超えて<a class="headerlink" href="#generate-grade" title="Permanent link">&para;</a></h2>
+<p><code>generate</code> と <code>grade</code> は内部ループを形成しますが、評価機能には知っておくべきコマンドが他にもいくつかあります。それぞれ、評価セットアップが成熟するにつれて利用する個別のステップです。</p>
+<h3 id="agents-cli-eval-dataset-synthesize"><code>agents-cli eval dataset synthesize</code><a class="headerlink" href="#agents-cli-eval-dataset-synthesize" title="Permanent link">&para;</a></h3>
+<p>ローカルの ADK エージェントを検査し、それに対する複数ターンの会話シナリオを生成することでデータセットを起動します — 入力ファイルは不要です。新しいエージェントの評価をコールドスタートする場合や、すべてのケースを手動で記述せずにカバレッジを拡大する場合に便利です。生成された各ケースには、開始ユーザーメッセージ、会話プラン、および LLM ベースのユーザーシミュレーターに対してシナリオを再生することで生成された完全なエージェントトレースが含まれます。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>dataset<span class="w"> </span>synthesize<span class="w"> </span>--count<span class="w"> </span><span class="m">10</span>
+</code></pre></div>
+<p><code>--instruction</code>（例: <code>"Scenarios where the user changes their mind"</code>）および <code>--environment-context</code>（例: <code>"Today is Monday. Flights to Paris are available."</code>）を使用して、生成される内容をコントロールします。出力は、編集、コミット、および <code>eval grade</code> に直接フィードバックできる通常の <code>*-dataset.json</code> ファイルです（トレースはすでに生成されているため、<code>eval generate</code> をスキップできます）。</p>
+<h3 id="agents-cli-eval-compare"><code>agents-cli eval compare</code><a class="headerlink" href="#agents-cli-eval-compare" title="Permanent link">&para;</a></h3>
+<p>変更によって実際に改善されたかどうかを確認できるように、2 つの採点結果を並べて比較します。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>compare<span class="w"> </span>baseline_results.json<span class="w"> </span>candidate_results.json
+</code></pre></div>
+<p>一般的な使用法は、評価・修正ループ中に「修正前」の実行と「修正後」の実行を比較することです。</p>
+<h3 id="agents-cli-eval-analyze"><code>agents-cli eval analyze</code><a class="headerlink" href="#agents-cli-eval-analyze" title="Permanent link">&para;</a></h3>
+<p>採点結果ファイルから失敗モードをテーマ別にクラスタリングし、個々のケースを目視するのではなく、<em>どのような問題が発生しているか</em> を視覚化できます。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>analyze<span class="w"> </span>--eval-result<span class="w"> </span>grade_results.json
+</code></pre></div>
+<h3 id="agents-cli-eval-metric-list"><code>agents-cli eval metric list</code><a class="headerlink" href="#agents-cli-eval-metric-list" title="Permanent link">&para;</a></h3>
+<p>SDK がサポートするすべての組み込みメトリクスと、それぞれの短い説明を出力します。上記の一般的なメトリクステーブル以外の利用可能な項目を知りたい場合の出発点となります。</p>
+<h3 id="agents-cli-eval-optimize"><code>agents-cli eval optimize</code><a class="headerlink" href="#agents-cli-eval-optimize" title="Permanent link">&para;</a></h3>
+<p>評価が整備されたら、<code>eval optimize</code> を使用して、評価結果に基づいてエージェントのプロンプトを自動的に調整します。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>optimize
+</code></pre></div>
+<p>実行にはデータセットのサイズとメトリクスの複雑さに応じて数分から数時間かかるため、何度も繰り返し実行するものではありません。よりシンプルなアプローチ（プロンプトの手動書換、メトリクスの調整、失敗ケースの手動修正など）を一通り試した後に使用してください。</p>
+<hr />
+<p>評価ケースのスキーマ、メトリクス、およびユーザーシミュレーションの詳細については、<a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/optimize/evaluation/agent-evaluation">Gemini Enterprise Agent Platform 評価ドキュメント</a> を参照してください。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="フッター" >
+        
+          
+          <a href="../templates/" class="md-footer__link md-footer__link--prev" aria-label="前: エージェントテンプレート">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                前
+              </span>
+              <div class="md-ellipsis">
+                エージェントテンプレート
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../deployment/" class="md-footer__link md-footer__link--next" aria-label="次: デプロイ">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                次
+              </span>
+              <div class="md-ellipsis">
+                デプロイ
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.code.annotate", "content.code.select", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.instant", "navigation.tabs", "navigation.path", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/persona.js"></script>
+      
+        <script src="../../javascripts/lifecycle.js"></script>
+      
+    
+  </body>
+</html>

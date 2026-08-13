@@ -1,0 +1,3383 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ADKエージェント開発ライフサイクル全体を統合管理するCLI">
+      
+      
+      
+      
+        <link rel="prev" href="../reference/">
+      
+      
+        <link rel="next" href="../reference/skills/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/logo_sm.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>CLI仕様 - agents-cli (日本語ドキュメント)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans JP";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cli" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href=".." title="agents-cli (日本語ドキュメント)" class="md-header__button md-logo" aria-label="agents-cli (日本語ドキュメント)" data-md-component="logo">
+      
+  <img src="../assets/logo_sm.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            agents-cli (日本語ドキュメント)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CLI仕様
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/adk-labs/agents-cli-docs-ja" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.01 8.01 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27s-1.36.09-2 .27c-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8"/></svg>
+  </div>
+  <div class="md-source__repository">
+    adk-labs/agents-cli-docs-ja
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../guide/getting-started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ガイド
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  リファレンス
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="agents-cli (日本語ドキュメント)" class="md-nav__button md-logo" aria-label="agents-cli (日本語ドキュメント)" data-md-component="logo">
+      
+  <img src="../assets/logo_sm.png" alt="logo">
+
+    </a>
+    agents-cli (日本語ドキュメント)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/adk-labs/agents-cli-docs-ja" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.01 8.01 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27s-1.36.09-2 .27c-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8"/></svg>
+  </div>
+  <div class="md-source__repository">
+    adk-labs/agents-cli-docs-ja
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ガイド
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ガイド
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    概要
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ライフサイクル
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/quickstart-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    チュートリアル: 最初のエージェントを構築
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/hands-on-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    チュートリアル: 手動ワークフロー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/use-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ユースケース
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    認証
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開発
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    開発
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開発ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/project-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    プロジェクト構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    エージェントテンプレート
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    評価
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    評価
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    評価ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    デプロイと運用
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    デプロイと運用
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    デプロイ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/cicd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD & 本番運用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../guide/observability/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    オブザーバビリティ
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    オブザーバビリティ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/observability/cloud-trace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud Trace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/observability/bq-agent-analytics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BigQuery プラグイン
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リファレンス
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    リファレンス
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI仕様
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI仕様
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#agents-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        agents-cli
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="agents-cli">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmd-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cmd-info
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        data-ingestion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        deploy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        eval
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="eval">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#analyze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        analyze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dataset
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="dataset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synthesize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        synthesize
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        grade
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        metric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="metric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        list
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        optimize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#submit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        submit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        infra
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="infra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#datastore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        datastore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        setup-cicd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        single-project
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        install
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#playground" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        playground
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        publish
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="publish">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gemini-enterprise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gemini-enterprise
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaffold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        scaffold
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="scaffold">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enhance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        enhance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        upgrade
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        update
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    スキル一覧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このプロジェクトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/from-agent-starter-pack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Starter Pack からの移行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/eval-dataset-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    評価データセットの移行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#agents-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        agents-cli
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="agents-cli">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmd-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cmd-info
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        data-ingestion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        deploy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        eval
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="eval">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#analyze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        analyze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dataset
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="dataset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synthesize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        synthesize
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        grade
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        metric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="metric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        list
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        optimize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#submit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        submit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        infra
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="infra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#datastore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        datastore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        setup-cicd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        single-project
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        install
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#playground" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        playground
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        publish
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="publish">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gemini-enterprise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gemini-enterprise
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaffold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        scaffold
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="scaffold">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enhance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        enhance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        upgrade
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        update
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="ナビゲーション" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href=".." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    ホーム
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../reference/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    リファレンス
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="cli">CLI リファレンス<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h1>
+<p>Agents CLI in Agent Platform (<code>agents-cli</code> バイナリ) のすべてのコマンドに関する完全なリファレンスです。</p>
+<h3 id="agents-cli">agents-cli<a class="headerlink" href="#agents-cli" title="Permanent link">&para;</a></h3>
+<p>Agents CLI — Agent Development Lifecycle toolchain.</p>
+<p>Build, evaluate, and deploy ADK agents with a single unified CLI.</p>
+<p>Quick start:
+  agents-cli setup                 Install skills to your coding agent
+  agents-cli create my-agent       Create a new agent project
+  agents-cli playground            Start the local playground
+  agents-cli eval generate         Run agent inference over eval cases
+  agents-cli eval grade            Grade generated traces
+  agents-cli scaffold enhance .    Add deployment/CI-CD to a project
+  agents-cli deploy                Deploy the agent</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>agents-cli [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>  --version  Show the version and exit.
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  --help     Show this message and exit.
+</code></pre></div>
+<h4 id="cmd-info">cmd-info<a class="headerlink" href="#cmd-info" title="Permanent link">&para;</a></h4>
+<p>Show project configuration, paths, and CLI version.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>agents-cli cmd-info [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>  --json  Output as JSON.
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  --help  Show this message and exit.
+</code></pre></div>
+<h4 id="create">create<a class="headerlink" href="#create" title="Permanent link">&para;</a></h4>
+<p>Create GCP-based AI agent projects from templates.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>agents-cli create [OPTIONS] [PROJECT_NAME]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>  -a, --agent TEXT                Template identifier to use. Can be a local
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>                                  agent name (e.g., `chat_agent`), a local
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>                                  path (`local@/path/to/template`), an `adk-
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>                                  samples` shortcut (e.g., `adk@data-
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>                                  science`), or a remote Git URL. Both
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>                                  shorthand (e.g.,
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>                                  `github.com/org/repo/path@main`) and full
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>                                  URLs from your browser (e.g., `https://githu
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>                                  b.com/org/repo/tree/main/path`) are
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>                                  supported. Lists available local templates
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>                                  if omitted.
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>  -o, --output-dir PATH           Output directory for the project (default:
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>                                  current directory)
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>  --agent-guidance-filename TEXT  Filename for agent guidance (e.g.,
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>                                  GEMINI.md, CLAUDE.md, AGENTS.md)
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>  -bt, --base-template TEXT       Base template to use (overrides template
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>                                  default, only for remote templates)
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>  --bq-analytics                  Include BigQuery Agent Analytics Plugin for
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>                                  observability
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>  -dir, --agent-directory TEXT    Name of the agent directory (overrides
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>                                  template default)
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>  -d, --deployment-target [agent_runtime|cloud_run|gke|none]
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>                                  Deployment target name
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>  --cicd-runner [google_cloud_build|github_actions|skip]
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>                                  CI/CD runner to use
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>  -p, --prototype                 Create minimal project without CI/CD or
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>                                  Terraform infrastructure
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>  --session-type [in_memory|cloud_sql|agent_platform_sessions]
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>                                  Type of session storage to use
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>  --debug                         Enable debug logging
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>  -i, --interactive               Enable interactive prompts for human use
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>  -y, --auto-approve, --yes       Non-interactive: skip prompts and use
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>                                  defaults
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>  --region TEXT                   GCP region for deployment (default: us-
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>                                  east1)
+<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>  -s, --skip-checks               Skip verification checks for GCP and Vertex
+<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>                                  AI
+<a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>  -ag, --agent-garden             Deployed from Agent Garden - customizes
+<a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>                                  welcome messages
+<a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a>  --adk                           Quickstart mode: adk + agent_runtime +
+<a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>                                  prototype, skips prompts
+<a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>  --help                          Show this message and exit.
+</code></pre></div>
+<h4 id="data-ingestion">data-ingestion<a class="headerlink" href="#data-ingestion" title="Permanent link">&para;</a></h4>
+<p>Removed: RAG is now a clone-and-study recipe.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>agents-cli data-ingestion [OPTIONS] [ARGS]...
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>  --help  Show this message and exit.
+</code></pre></div>
+<h4 id="deploy">deploy<a class="headerlink" href="#deploy" title="Permanent link">&para;</a></h4>
+<p>Deploy the agent.</p>
+<p>Dispatches by deployment target configured in agents-cli-manifest.yaml:
+  agent_runtime → Agent Runtime deployment
+  cloud_run    → gcloud beta run deploy
+  gke          → terraform + docker build + kubectl apply</p>
+<p>Pass --deployment-target to override the manifest, or to deploy without a
+manifest (e.g. from a built container or CI):
+  agents-cli deploy --deployment-target cloud_run</p>
+<p>Use --list to show existing deployments:
+  agents-cli deploy --list</p>
+<p>Use --no-wait to start a deployment and return immediately:
+  agents-cli deploy --no-wait</p>
+<p>Use --status to check on a --no-wait deployment:
+  agents-cli deploy --status</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>agents-cli deploy [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>  --project TEXT                  GCP project ID.
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  --region TEXT                   GCP region.
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  -d, --deployment-target [agent_runtime|cloud_run|gke]
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>                                  Deployment target. Overrides agents-cli-
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>                                  manifest.yaml and lets deploy run without a
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>                                  manifest.
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  --secrets TEXT                  Comma-separated ENV=SECRET or
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>                                  ENV=SECRET:VERSION pairs (Agent Runtime,
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>                                  Cloud Run).
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>  --agent-identity                Enable agent identity.
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>  --update-env-vars TEXT          Comma-separated KEY=VALUE env vars.
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>  --iap                           Enable Identity-Aware Proxy (Cloud Run).
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>  --port INTEGER                  Container port (Cloud Run / Agent Runtime).
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>  --memory TEXT                   Memory limit (Agent Runtime, Cloud Run).
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>                                  Default: 4Gi.
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>  --cpu TEXT                      CPU limit (Agent Runtime, Cloud Run).
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>                                  Default: 1.
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>  --min-instances INTEGER         Minimum number of instances (Agent Runtime,
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>                                  Cloud Run). Default: 1.
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>  --max-instances INTEGER         Maximum number of instances (Agent Runtime,
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>                                  Cloud Run). Default: 10.
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>  --concurrency INTEGER           Concurrent requests per container (Agent
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>                                  Runtime, Cloud Run). Default: 8.
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>  --service-account TEXT          Service account email.
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>  --service-name TEXT             Override the deployed service name (Cloud
+<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>                                  Run service or Agent Runtime display name);
+<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>                                  defaults to the project name. Not supported
+<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>                                  for GKE. If you override it, consider
+<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>                                  updating your Terraform and CI (if present)
+<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>                                  — they derive resource names from the
+<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>                                  project name.
+<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>  --image TEXT                    Container image URI (Cloud Run / GKE). Skips
+<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>                                  source build.
+<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>  --build-args TEXT               Comma-separated KEY=VALUE args passed to the
+<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>                                  container image build (Agent Runtime).
+<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>  --cluster-name TEXT             Cluster name (GKE).
+<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>  -n, --dry-run, --dryrun         Print what would be executed without running
+<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>                                  it.
+<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>  --list                          List existing deployments and exit.
+<a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>  --no-wait                       Start the deployment and return immediately.
+<a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>  --status                        Check the status of a pending --no-wait
+<a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a>                                  deployment.
+<a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a>  -i, --interactive               Enable interactive prompts for underlying
+<a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a>                                  tooling (gcloud, etc).
+<a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a>  --no-confirm-project            Skip project confirmation prompt.
+<a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a>  --network-attachment TEXT       Network attachment resource name for PSC
+<a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a>                                  interface (Agent Runtime). Enables private
+<a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a>                                  VPC connectivity. Format: projects/PROJECT/r
+<a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a>                                  egions/REGION/networkAttachments/NAME
+<a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a>  --dns-peering-domain TEXT       DNS peering domain suffix, e.g. &#39;my-
+<a id="__codelineno-9-51" name="__codelineno-9-51" href="#__codelineno-9-51"></a>                                  internal.corp.&#39; (Agent Runtime, requires
+<a id="__codelineno-9-52" name="__codelineno-9-52" href="#__codelineno-9-52"></a>                                  --network-attachment).
+<a id="__codelineno-9-53" name="__codelineno-9-53" href="#__codelineno-9-53"></a>  --dns-peering-project TEXT      Project ID hosting the Cloud DNS managed
+<a id="__codelineno-9-54" name="__codelineno-9-54" href="#__codelineno-9-54"></a>                                  zone for DNS peering (Agent Runtime,
+<a id="__codelineno-9-55" name="__codelineno-9-55" href="#__codelineno-9-55"></a>                                  requires --network-attachment).
+<a id="__codelineno-9-56" name="__codelineno-9-56" href="#__codelineno-9-56"></a>  --dns-peering-network TEXT      VPC network name in the target project for
+<a id="__codelineno-9-57" name="__codelineno-9-57" href="#__codelineno-9-57"></a>                                  DNS peering (Agent Runtime, requires
+<a id="__codelineno-9-58" name="__codelineno-9-58" href="#__codelineno-9-58"></a>                                  --network-attachment).
+<a id="__codelineno-9-59" name="__codelineno-9-59" href="#__codelineno-9-59"></a>  --help                          Show this message and exit.
+</code></pre></div>
+<h4 id="eval">eval<a class="headerlink" href="#eval" title="Permanent link">&para;</a></h4>
+<p>Evaluate agents and compare results.</p>
+<p>Core:
+  run       Chain generate + grade in one command
+  generate  Run agent inference over eval cases
+  grade     Grade generated traces
+  compare   Compare two eval result JSON files
+  metric    Discover and manage evaluation metrics</p>
+<p>Advanced (experimental):
+  dataset   Synthesize multi-turn eval traces (user simulation)
+  analyze   Analyze failure clusters from results
+  optimize  Optimize agent prompts using the GEPA framework
+  submit    Submit an E2E cloud-side evaluation run on Vertex AI Eval Service
+  results   Fetch results from a completed cloud evaluation run</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>agents-cli eval [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>  --help  Show this message and exit.
+</code></pre></div>
+<h5 id="analyze">analyze<a class="headerlink" href="#analyze" title="Permanent link">&para;</a></h5>
+<p>[Experimental] Analyze failure clusters from an evaluation run result JSON file. Results are always saved to a file.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>agents-cli eval analyze [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>  --eval-result FILE           Required. Path to the evaluation results JSON
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>                               file.  [required]
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>  --top-k INTEGER              Optional. Maximum number of loss clusters to
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>                               identify.
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>  --metric TEXT                Optional. Evaluation metric name to run
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>                               analysis against. Currently supported:
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>                               multi_turn_task_success,
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>                               multi_turn_tool_use_quality
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>  --output FILE                Optional. Path where the results should be
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>                               saved. Defaults to saving to the &#39;artifacts&#39;
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>                               directory.
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>  --output-format [json|html]  Format of the saved output file.  [default:
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>                               json]
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>  --project TEXT               GCP project ID. Overrides GOOGLE_CLOUD_PROJECT
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>                               and ADC.
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>  --help                       Show this message and exit.
+</code></pre></div>
+<h5 id="compare">compare<a class="headerlink" href="#compare" title="Permanent link">&para;</a></h5>
+<p>Compare two eval result JSON files.</p>
+<p>Reads BASELINE and CANDIDATE JSON files and produces a diff.
+No subprocess calls — purely in-process comparison.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>agents-cli eval compare [OPTIONS] BASELINE CANDIDATE
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>  --help  Show this message and exit.
+</code></pre></div>
+<h5 id="dataset">dataset<a class="headerlink" href="#dataset" title="Permanent link">&para;</a></h5>
+<p>[Experimental] Manage evaluation traces.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>agents-cli eval dataset [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>  --help  Show this message and exit.
+</code></pre></div>
+<h6 id="synthesize">synthesize<a class="headerlink" href="#synthesize" title="Permanent link">&para;</a></h6>
+<p>[Experimental] Synthesize evaluation traces (eval cases with full agent runs).</p>
+<p>Generates synthetic multi-turn conversations by inspecting the project's
+ADK agent (read from <code>agent_directory</code> in agents-cli-manifest.yaml) and running it
+with a model-based user simulator.</p>
+<p>Examples:
+  # Basic — synthesize 3 scenarios with up to 5 turns each:
+  agents-cli eval dataset synthesize</p>
+<p># Custom count, turns, and instruction:
+  agents-cli eval dataset synthesize -n 10 --max-turns 8 \
+    --instruction "Scenarios where users change destination"</p>
+<p>Requires:
+  - A local ADK agent project with agents-cli-manifest.yaml
+  - Google Cloud authentication (<code>agents-cli login</code>)</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>agents-cli eval dataset synthesize [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>  -n, --count INTEGER RANGE   Number of conversation scenarios to generate.
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>                              [default: 3; x&gt;=1]
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>  --instruction TEXT          Natural-language instruction guiding scenario
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>                              generation. Example: &#39;Generate scenarios where
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>                              the user changes their mind.&#39;
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>  --environment-context TEXT  Environment context injected into each scenario.
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>                              Example: &#39;Today is Monday. Flights to Paris are
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>                              available.&#39;
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>  --model TEXT                Optional. Custom model used for scenario
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>                              generation.Example: gemini-3-flash-preview.
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>  --max-turns INTEGER RANGE   Maximum conversation turns per scenario during
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>                              user simulation.  [default: 5; x&gt;=1]
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>  -o, --output TEXT           Output path for the synthesized traces. If an
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>                              existing directory is given, a timestamped file
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>                              is written inside it; otherwise the value is
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>                              treated as a file path. Defaults to a
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>                              timestamped file under &#39;artifacts/traces/&#39; so
+<a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>                              that `agents-cli eval grade` can consume it
+<a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a>                              directly.
+<a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a>  --help                      Show this message and exit.
+</code></pre></div>
+<h5 id="generate">generate<a class="headerlink" href="#generate" title="Permanent link">&para;</a></h5>
+<p>Generate agent traces by running inference over eval cases.</p>
+<p>Reads an evaluation dataset and runs the ADK agent over each case,
+writing populated traces (agent responses + tool calls) ready for
+downstream scoring with <code>agents-cli eval grade</code>. Eval cases run in parallel.</p>
+<p>Each eval case must provide one of:
+  * a top-level <code>prompt</code> field (single user message), or
+  * <code>agent_data</code> whose turns end with a user message — for continued
+    conversations where the next agent response should be appended
+    (the "N+1" pattern).</p>
+<p>By default, tries to run the agent in a local HTTP server (project's <code>fast_api_app.py</code> if it exists, or <code>adk api_server</code>).
+Pass <code>--url</code> to run against an already-running or deployed agent instead.</p>
+<p>Example:
+  agents-cli eval generate --dataset eval_cases.json --output artifacts/traces/
+  agents-cli eval generate --url https://my-agent.run.app --app-name app</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>agents-cli eval generate [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>  --dataset TEXT               Path to a JSON dataset file of eval cases ready
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>                               for inference. Each case must provide one of: a
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>                               top-level &#39;prompt&#39; field (single user message),
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>                               or &#39;agent_data&#39; whose turns end with a user
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>                               message (continued conversation; appends the
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>                               next agent response). Defaults to
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>                               &#39;tests/eval/datasets/basic-dataset.json&#39; (the
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>                               file scaffolded by `agents-cli create`).
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>  -o, --output TEXT            Output path for the populated traces. If an
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>                               existing directory is given, a timestamped file
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>                               is written inside it; otherwise the value is
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>                               treated as a file path. Defaults to a
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>                               timestamped file under &#39;artifacts/traces/&#39; so
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>                               that `agents-cli eval grade` can consume it
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>                               directly.
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>  --url TEXT                   URL of a running ADK agent to run inference
+<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>                               against, e.g. a deployed Cloud Run / GKE URL or
+<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>                               a locally-running server. When omitted, agents-
+<a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>                               cli runs the agent in a local HTTP server. In
+<a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>                               both cases each evaluation case is sent to the
+<a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a>                               server over HTTP (POST
+<a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a>                               /apps/{app}/users/{user}/sessions + POST
+<a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a>                               /run_sse). Eval cases run in parallel.
+<a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a>  --app-name TEXT              Agent app name to use in the ADK URL path
+<a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a>                               (/apps/&lt;app-name&gt;/users/...). Only used when
+<a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a>                               --url is set. Defaults to &#39;app&#39;.
+<a id="__codelineno-21-27" name="__codelineno-21-27" href="#__codelineno-21-27"></a>  --concurrency INTEGER RANGE  Number of eval cases dispatched in parallel
+<a id="__codelineno-21-28" name="__codelineno-21-28" href="#__codelineno-21-28"></a>                               over HTTP. Each case runs in its own session.
+<a id="__codelineno-21-29" name="__codelineno-21-29" href="#__codelineno-21-29"></a>                               Defaults to min(32, number of CPU
+<a id="__codelineno-21-30" name="__codelineno-21-30" href="#__codelineno-21-30"></a>                               cores),falling back to 4 if that cannot be
+<a id="__codelineno-21-31" name="__codelineno-21-31" href="#__codelineno-21-31"></a>                               determined.  [default: (number of CPU cores);
+<a id="__codelineno-21-32" name="__codelineno-21-32" href="#__codelineno-21-32"></a>                               x&gt;=1]
+<a id="__codelineno-21-33" name="__codelineno-21-33" href="#__codelineno-21-33"></a>  -H, --header TEXT            Custom HTTP header (format: &#39;Key: Value&#39;).
+<a id="__codelineno-21-34" name="__codelineno-21-34" href="#__codelineno-21-34"></a>                               Repeatable. Overrides auto-detected auth.
+<a id="__codelineno-21-35" name="__codelineno-21-35" href="#__codelineno-21-35"></a>  --help                       Show this message and exit.
+</code></pre></div>
+<h5 id="grade">grade<a class="headerlink" href="#grade" title="Permanent link">&para;</a></h5>
+<p>Score populated agent traces against one or more metrics.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>agents-cli eval grade [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>  --traces PATH       File or directory of populated traces JSON (output of
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>                      `eval generate` or `eval dataset synthesize`).
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>  --output DIRECTORY  Directory to save evaluation results and artifacts.
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>  --metrics TEXT      Comma-separated list of metrics to evaluate (e.g.,
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>                      &#39;final_response_quality,grounding&#39;).
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>  --config FILE       Path to a JSON or YAML file containing metrics to run
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>                      and custom metrics configuration.
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>  --project TEXT      GCP project ID. Overrides GOOGLE_CLOUD_PROJECT and ADC.
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>  --region TEXT       GCP region for the Vertex eval service. Defaults to
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>                      &#39;global&#39;.
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>  --help              Show this message and exit.
+</code></pre></div>
+<h5 id="metric">metric<a class="headerlink" href="#metric" title="Permanent link">&para;</a></h5>
+<p>Discover and manage evaluation metrics.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>agents-cli eval metric [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>  --help  Show this message and exit.
+</code></pre></div>
+<h6 id="list">list<a class="headerlink" href="#list" title="Permanent link">&para;</a></h6>
+<p>List available out-of-the-box (OOTB) evaluation metrics.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>agents-cli eval metric list [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>  --help  Show this message and exit.
+</code></pre></div>
+<h5 id="optimize">optimize<a class="headerlink" href="#optimize" title="Permanent link">&para;</a></h5>
+<p>[Experimental] Optimize agent prompts using the GEPA framework.</p>
+<p>This command runs 'adk optimize' under the hood to automatically improve
+your agent's instructions by iteratively refining the prompt.</p>
+<p>How it works:
+- --dataset: Path to a JSON file in EvaluationDataset format. If not provided,
+  it uses values from your config file.
+- --target-metric: The name of the evaluation metric to optimize for.
+  If not provided, it uses values from your config file.
+- --config: Optional JSON file for advanced configuration. It can include:
+    - eval_config (ADK EvalConfig)
+    - train_dataset (Path to EvaluationDataset JSON file or dict in EvaluationDataset format)
+    - validation_dataset (Path to EvaluationDataset JSON file or dict in EvaluationDataset format)
+    - optimizer_config (ADK GEPARootAgentPromptOptimizerConfig)
+    - log_level (string, e.g., 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'). Default is 'WARNING'.
+    - print_detailed_results (boolean). Set to true to enable printing detailed results. Default is false.
+- Default Paths: By default, it looks for a JSON config file in
+  tests/eval/optimization_config.json.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>agents-cli eval optimize [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>  --dataset TEXT        Path to an EvaluationDataset JSON file. Overrides
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>                        datasets in the config file.
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>  --target-metric TEXT  The evaluation metric to optimize for. Overrides
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>                        evaluation settings in the config file.
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>  --config TEXT         Path to a combined JSON config file for advanced
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>                        settings.
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>  --help                Show this message and exit.
+</code></pre></div>
+<h5 id="results">results<a class="headerlink" href="#results" title="Permanent link">&para;</a></h5>
+<p>[Experimental] Fetch results from a completed cloud evaluation run.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>agents-cli eval results [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>  --run-id TEXT       Evaluation run resource ID/name.  [required]
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>  --output DIRECTORY  Directory to save evaluation results and artifacts.
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>  --project TEXT      GCP project ID. Overrides GOOGLE_CLOUD_PROJECT and ADC.
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>  --region TEXT       GCP region for the Vertex eval service. Defaults to
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>                      &#39;global&#39;.
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>  --help              Show this message and exit.
+</code></pre></div>
+<h5 id="run">run<a class="headerlink" href="#run" title="Permanent link">&para;</a></h5>
+<p>Chain <code>eval generate</code> and <code>eval grade</code> in one command.</p>
+<p>Thin alias for the common path: runs inference over the dataset to produce
+traces in the default <code>artifacts/traces/</code> directory, then grades those
+traces and writes results.</p>
+<p>For custom intermediate trace locations, use the two-step form
+(<code>eval generate</code> then <code>eval grade</code>) instead.</p>
+<p>Example:
+  agents-cli eval run --dataset eval_cases.json --metrics final_response_quality</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>agents-cli eval run [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>  --dataset TEXT               Path to a JSON dataset file of eval cases ready
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>                               for inference. Forwarded to `eval generate`.
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>                               Defaults to the file scaffolded by `agents-cli
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>                               create`.
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>  --output DIRECTORY           Directory to save final evaluation results and
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>                               artifacts. Forwarded to `eval grade`. Defaults
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>                               to `artifacts/grade_results/`.
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>  --metrics TEXT               Comma-separated list of metrics to evaluate
+<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>                               (e.g., &#39;final_response_quality,grounding&#39;).
+<a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>                               Forwarded to `eval grade`.
+<a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a>  --config FILE                Path to a JSON or YAML file containing metrics
+<a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a>                               to run and custom metrics configuration.
+<a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a>                               Forwarded to `eval grade`.
+<a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a>  --project TEXT               GCP project ID for grading. Overrides
+<a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a>                               GOOGLE_CLOUD_PROJECT and ADC.
+<a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a>  --region TEXT                GCP region for the Vertex eval service
+<a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a>                               (grading). Inference reads
+<a id="__codelineno-33-18" name="__codelineno-33-18" href="#__codelineno-33-18"></a>                               GOOGLE_CLOUD_LOCATION from the agent&#39;s .env.
+<a id="__codelineno-33-19" name="__codelineno-33-19" href="#__codelineno-33-19"></a>  --url TEXT                   URL of a running ADK agent to run inference
+<a id="__codelineno-33-20" name="__codelineno-33-20" href="#__codelineno-33-20"></a>                               against instead of loading the local project&#39;s
+<a id="__codelineno-33-21" name="__codelineno-33-21" href="#__codelineno-33-21"></a>                               agent in-process. Forwarded to `eval generate`.
+<a id="__codelineno-33-22" name="__codelineno-33-22" href="#__codelineno-33-22"></a>  --app-name TEXT              Agent app name to use in the ADK URL path.
+<a id="__codelineno-33-23" name="__codelineno-33-23" href="#__codelineno-33-23"></a>                               Defaults to &#39;app&#39;. Forwarded to `eval
+<a id="__codelineno-33-24" name="__codelineno-33-24" href="#__codelineno-33-24"></a>                               generate`.
+<a id="__codelineno-33-25" name="__codelineno-33-25" href="#__codelineno-33-25"></a>  --concurrency INTEGER RANGE  Number of eval cases dispatched in parallel.
+<a id="__codelineno-33-26" name="__codelineno-33-26" href="#__codelineno-33-26"></a>                               Forwarded to `eval generate`.  [default:
+<a id="__codelineno-33-27" name="__codelineno-33-27" href="#__codelineno-33-27"></a>                               (number of CPU cores); x&gt;=1]
+<a id="__codelineno-33-28" name="__codelineno-33-28" href="#__codelineno-33-28"></a>  -H, --header TEXT            Custom HTTP header (format: &#39;Key: Value&#39;).
+<a id="__codelineno-33-29" name="__codelineno-33-29" href="#__codelineno-33-29"></a>                               Repeatable. Forwarded to `eval generate`.
+<a id="__codelineno-33-30" name="__codelineno-33-30" href="#__codelineno-33-30"></a>  --help                       Show this message and exit.
+</code></pre></div>
+<h5 id="submit">submit<a class="headerlink" href="#submit" title="Permanent link">&para;</a></h5>
+<p>[Experimental] Submit an E2E cloud-side evaluation run on Vertex AI Eval Service.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>agents-cli eval submit [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>  --resource-name TEXT  Agent engine resource name (e.g.
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>                        projects/.../locations/.../reasoningEngines/...).
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>  --dataset FILE        Path to evaluation dataset file (JSON trace etc.).
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>                        [required]
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>  --dest TEXT           GCS output bucket URI prefix staging path (e.g.,
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>                        gs://my-bucket).  [required]
+<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>  --metrics TEXT        Comma-separated list of metrics to evaluate (e.g.,
+<a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a>                        &#39;final_response_quality,grounding&#39;).
+<a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a>  --config FILE         Path to a JSON or YAML file containing metrics to run
+<a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>                        and custom metrics configuration.
+<a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a>  --project TEXT        GCP project ID. Overrides GOOGLE_CLOUD_PROJECT and
+<a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a>                        ADC.
+<a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a>  --region TEXT         GCP region for the Vertex eval service. Defaults to
+<a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a>                        &#39;global&#39;.
+<a id="__codelineno-35-15" name="__codelineno-35-15" href="#__codelineno-35-15"></a>  --help                Show this message and exit.
+</code></pre></div>
+<h4 id="infra">infra<a class="headerlink" href="#infra" title="Permanent link">&para;</a></h4>
+<p>Provision infrastructure for your agent project.</p>
+<p>Subcommands:
+  single-project  Optional — custom infrastructure for a single GCP project
+  cicd            Set up CI/CD pipelines and multi-environment infrastructure</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>agents-cli infra [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>  --help  Show this message and exit.
+</code></pre></div>
+<h5 id="datastore">datastore<a class="headerlink" href="#datastore" title="Permanent link">&para;</a></h5>
+<p>Removed: RAG is now a clone-and-study recipe.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>agents-cli infra datastore [OPTIONS] [ARGS]...
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>  --help  Show this message and exit.
+</code></pre></div>
+<h5 id="setup-cicd">setup-cicd<a class="headerlink" href="#setup-cicd" title="Permanent link">&para;</a></h5>
+<p>Set up CI/CD pipelines and Terraform infrastructure for your agent project.</p>
+<p>Provisions GitHub Actions or Cloud Build pipelines with staging and production
+environments. Requires staging, prod, and CI/CD project IDs as flags.
+Pass --interactive to be guided through missing values interactively.</p>
+<p>By default, runs terraform plan to preview changes. Use --apply to apply.
+Note: plan mode still writes local config files (env.tfvars, Terraform
+templates) and verifies cloud prerequisites (GitHub auth, Cloud Build
+connections) as these are required for an accurate plan.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>agents-cli infra setup-cicd [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>  --dev-project TEXT              Development project ID
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>  --staging-project TEXT          Staging project ID
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>  --prod-project TEXT             Production project ID
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>  --cicd-project TEXT             CICD project ID (defaults to prod project if
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>                                  not specified)
+<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>  --region TEXT                   GCP region (auto-detects from Terraform vars
+<a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>                                  if not specified)
+<a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>  --repository-name TEXT          Repository name (optional)
+<a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a>  --repository-owner TEXT         Repository owner (optional, defaults to
+<a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a>                                  current GitHub user)
+<a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a>  --host-connection-name TEXT     Host connection name (optional)
+<a id="__codelineno-41-12" name="__codelineno-41-12" href="#__codelineno-41-12"></a>  --github-pat TEXT               GitHub Personal Access Token for
+<a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a>                                  programmatic auth
+<a id="__codelineno-41-14" name="__codelineno-41-14" href="#__codelineno-41-14"></a>  --github-app-installation-id TEXT
+<a id="__codelineno-41-15" name="__codelineno-41-15" href="#__codelineno-41-15"></a>                                  GitHub App Installation ID for programmatic
+<a id="__codelineno-41-16" name="__codelineno-41-16" href="#__codelineno-41-16"></a>                                  auth
+<a id="__codelineno-41-17" name="__codelineno-41-17" href="#__codelineno-41-17"></a>  --local-state                   Use local Terraform state instead of remote
+<a id="__codelineno-41-18" name="__codelineno-41-18" href="#__codelineno-41-18"></a>                                  GCS backend (defaults to remote)
+<a id="__codelineno-41-19" name="__codelineno-41-19" href="#__codelineno-41-19"></a>  --debug                         Enable debug logging
+<a id="__codelineno-41-20" name="__codelineno-41-20" href="#__codelineno-41-20"></a>  -i, --interactive               Enable interactive prompts for human use.
+<a id="__codelineno-41-21" name="__codelineno-41-21" href="#__codelineno-41-21"></a>  --create                        Create a new GitHub repository (default: use
+<a id="__codelineno-41-22" name="__codelineno-41-22" href="#__codelineno-41-22"></a>                                  existing).
+<a id="__codelineno-41-23" name="__codelineno-41-23" href="#__codelineno-41-23"></a>  --cicd-runner [google_cloud_build|github_actions]
+<a id="__codelineno-41-24" name="__codelineno-41-24" href="#__codelineno-41-24"></a>                                  CI/CD runner to use
+<a id="__codelineno-41-25" name="__codelineno-41-25" href="#__codelineno-41-25"></a>  --apply                         Apply changes. Without this flag, only a
+<a id="__codelineno-41-26" name="__codelineno-41-26" href="#__codelineno-41-26"></a>                                  plan is shown.
+<a id="__codelineno-41-27" name="__codelineno-41-27" href="#__codelineno-41-27"></a>  --force-bucket, --force         Allow usage of a terraform config bucket
+<a id="__codelineno-41-28" name="__codelineno-41-28" href="#__codelineno-41-28"></a>                                  that exists in a different GCP project. By
+<a id="__codelineno-41-29" name="__codelineno-41-29" href="#__codelineno-41-29"></a>                                  default, this is disallowed to guard against
+<a id="__codelineno-41-30" name="__codelineno-41-30" href="#__codelineno-41-30"></a>                                  bucket squatting attacks.
+<a id="__codelineno-41-31" name="__codelineno-41-31" href="#__codelineno-41-31"></a>  --help                          Show this message and exit.
+</code></pre></div>
+<h5 id="single-project">single-project<a class="headerlink" href="#single-project" title="Permanent link">&para;</a></h5>
+<p>Provision single-project infrastructure (optional).</p>
+<p>Not required for basic deployments — <code>agents-cli deploy</code> works out of the
+box using smart defaults (default Compute Engine service account,
+on-the-fly resource provisioning). Run this when you need custom setup
+such as a dedicated service account, pre-provisioned secrets, or specific
+IAM bindings.</p>
+<p>By default, runs terraform init + terraform plan to preview changes.
+Use --apply to apply the changes.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>agents-cli infra single-project [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>  --project TEXT  GCP project ID.
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>  --apply         Apply changes. Without this flag, only a plan is shown.
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>  --help          Show this message and exit.
+</code></pre></div>
+<h4 id="install">install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h4>
+<p>Install project dependencies.</p>
+<p>Runs: uv sync</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>agents-cli install [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>  --clean   Clean and fix the uv virtual environment. (For example, if the
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>            project folder is moved or renamed).
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>  --locked  Assert that uv.lock is up to date with pyproject.toml; fail
+<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>            instead of updating it.
+<a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>  --help    Show this message and exit.
+</code></pre></div>
+<h4 id="lint">lint<a class="headerlink" href="#lint" title="Permanent link">&para;</a></h4>
+<p>Run code quality checks.</p>
+<p>Runs: uv run ruff check .
+      uv run ruff format . --check
+      uv run codespell (unless --skip-codespell)
+      uv run ty check . (unless --skip-ty)
+      uv run mypy . (if --mypy)</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>agents-cli lint [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>  --fix             Auto-fix linting issues.
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>  --mypy            Also run mypy type checking.
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>  --skip-codespell  Skip codespell spell checking.
+<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>  --skip-ty         Skip ty type checking.
+<a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a>  --help            Show this message and exit.
+</code></pre></div>
+<h4 id="login">login<a class="headerlink" href="#login" title="Permanent link">&para;</a></h4>
+<p>Authenticate with Google Cloud or AI Studio. Requires --interactive (-i).</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>agents-cli login [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>  -i, --interactive  Enable interactive authentication (required for login).
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>  --status           Show authentication status.
+<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>  --help             Show this message and exit.
+</code></pre></div>
+<h4 id="playground">playground<a class="headerlink" href="#playground" title="Permanent link">&para;</a></h4>
+<p>Start the local agent playground.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>agents-cli playground [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>  --port INTEGER                  Port for the playground server.
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>  --host TEXT                     Host the server binds to.
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>  --reload_agents / --no-reload_agents
+<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a>                                  Enable / disable live reload when agent code
+<a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>                                  changes.
+<a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a>  --otel-to-cloud                 Export OpenTelemetry traces/logs to Google
+<a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a>                                  Cloud.
+<a id="__codelineno-51-8" name="__codelineno-51-8" href="#__codelineno-51-8"></a>  --help                          Show this message and exit.
+</code></pre></div>
+<h4 id="publish">publish<a class="headerlink" href="#publish" title="Permanent link">&para;</a></h4>
+<p>Publish agents to various targets.</p>
+<p>Subcommands:
+  gemini-enterprise  Register an Agent Runtime to Gemini Enterprise</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>agents-cli publish [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>  --help  Show this message and exit.
+</code></pre></div>
+<h5 id="gemini-enterprise">gemini-enterprise<a class="headerlink" href="#gemini-enterprise" title="Permanent link">&para;</a></h5>
+<p>Register a deployed agent with Gemini Enterprise.</p>
+<p>All required parameters must be supplied as flags in programmatic mode.
+Pass --interactive to be guided through missing values interactively.</p>
+<p>\b
+Use --list to list Gemini Enterprise apps in the current project:
+  agents-cli publish gemini-enterprise --list</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>agents-cli publish gemini-enterprise [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>  --agent-runtime-id TEXT         Agent Runtime resource name (e.g.,
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>                                  projects/.../reasoningEngines/...). If not
+<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>                                  provided, reads from
+<a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a>                                  deployment_metadata.json.
+<a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a>  --metadata-file TEXT            Path to deployment metadata file (default:
+<a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a>                                  deployment_metadata.json).
+<a id="__codelineno-55-7" name="__codelineno-55-7" href="#__codelineno-55-7"></a>  --gemini-enterprise-app-id TEXT
+<a id="__codelineno-55-8" name="__codelineno-55-8" href="#__codelineno-55-8"></a>                                  Gemini Enterprise app full resource name
+<a id="__codelineno-55-9" name="__codelineno-55-9" href="#__codelineno-55-9"></a>                                  (e.g., projects/{project_number}/locations/{
+<a id="__codelineno-55-10" name="__codelineno-55-10" href="#__codelineno-55-10"></a>                                  location}/collections/{collection}/engines/{
+<a id="__codelineno-55-11" name="__codelineno-55-11" href="#__codelineno-55-11"></a>                                  engine_id}). If not provided, the command
+<a id="__codelineno-55-12" name="__codelineno-55-12" href="#__codelineno-55-12"></a>                                  will prompt you interactively. Can also be
+<a id="__codelineno-55-13" name="__codelineno-55-13" href="#__codelineno-55-13"></a>                                  set via ID or GEMINI_ENTERPRISE_APP_ID env
+<a id="__codelineno-55-14" name="__codelineno-55-14" href="#__codelineno-55-14"></a>                                  var.
+<a id="__codelineno-55-15" name="__codelineno-55-15" href="#__codelineno-55-15"></a>  --display-name TEXT             Display name for the agent.
+<a id="__codelineno-55-16" name="__codelineno-55-16" href="#__codelineno-55-16"></a>  --description TEXT              Description of the agent.
+<a id="__codelineno-55-17" name="__codelineno-55-17" href="#__codelineno-55-17"></a>  --tool-description TEXT         Description of what the tool does.
+<a id="__codelineno-55-18" name="__codelineno-55-18" href="#__codelineno-55-18"></a>  --project-id, --project TEXT    GCP project ID (extracted from agent-
+<a id="__codelineno-55-19" name="__codelineno-55-19" href="#__codelineno-55-19"></a>                                  runtime-id if not provided).
+<a id="__codelineno-55-20" name="__codelineno-55-20" href="#__codelineno-55-20"></a>  --authorization-id TEXT         OAuth authorization resource name (e.g., pro
+<a id="__codelineno-55-21" name="__codelineno-55-21" href="#__codelineno-55-21"></a>                                  jects/{project_number}/locations/global/auth
+<a id="__codelineno-55-22" name="__codelineno-55-22" href="#__codelineno-55-22"></a>                                  orizations/{auth_id}).
+<a id="__codelineno-55-23" name="__codelineno-55-23" href="#__codelineno-55-23"></a>  --agent-card-url TEXT           URL to fetch the agent card for A2A agents
+<a id="__codelineno-55-24" name="__codelineno-55-24" href="#__codelineno-55-24"></a>                                  (e.g., https://your-
+<a id="__codelineno-55-25" name="__codelineno-55-25" href="#__codelineno-55-25"></a>                                  service.run.app/a2a/app/.well-known/agent-
+<a id="__codelineno-55-26" name="__codelineno-55-26" href="#__codelineno-55-26"></a>                                  card.json). If provided, registers as an A2A
+<a id="__codelineno-55-27" name="__codelineno-55-27" href="#__codelineno-55-27"></a>                                  agent instead of ADK agent.
+<a id="__codelineno-55-28" name="__codelineno-55-28" href="#__codelineno-55-28"></a>  --deployment-target [agent_runtime|cloud_run|gke]
+<a id="__codelineno-55-29" name="__codelineno-55-29" href="#__codelineno-55-29"></a>                                  Deployment target (agent_runtime, cloud_run,
+<a id="__codelineno-55-30" name="__codelineno-55-30" href="#__codelineno-55-30"></a>                                  or gke).
+<a id="__codelineno-55-31" name="__codelineno-55-31" href="#__codelineno-55-31"></a>  --project-number TEXT           GCP project number. Used as default when
+<a id="__codelineno-55-32" name="__codelineno-55-32" href="#__codelineno-55-32"></a>                                  prompting for Gemini Enterprise
+<a id="__codelineno-55-33" name="__codelineno-55-33" href="#__codelineno-55-33"></a>                                  configuration.
+<a id="__codelineno-55-34" name="__codelineno-55-34" href="#__codelineno-55-34"></a>  --registration-type [a2a|adk]   Registration type: &#39;a2a&#39; for A2A agents
+<a id="__codelineno-55-35" name="__codelineno-55-35" href="#__codelineno-55-35"></a>                                  (requires agent card URL), &#39;adk&#39; for ADK
+<a id="__codelineno-55-36" name="__codelineno-55-36" href="#__codelineno-55-36"></a>                                  agents on Agent Runtime (requires agent
+<a id="__codelineno-55-37" name="__codelineno-55-37" href="#__codelineno-55-37"></a>                                  engine ID). If not provided, auto-detected
+<a id="__codelineno-55-38" name="__codelineno-55-38" href="#__codelineno-55-38"></a>                                  from metadata or prompted.
+<a id="__codelineno-55-39" name="__codelineno-55-39" href="#__codelineno-55-39"></a>  -i, --interactive               Enable interactive prompts for human use.
+<a id="__codelineno-55-40" name="__codelineno-55-40" href="#__codelineno-55-40"></a>  --list                          List Gemini Enterprise apps in the current
+<a id="__codelineno-55-41" name="__codelineno-55-41" href="#__codelineno-55-41"></a>                                  project and exit.
+<a id="__codelineno-55-42" name="__codelineno-55-42" href="#__codelineno-55-42"></a>  --help                          Show this message and exit.
+</code></pre></div>
+<h4 id="run_1">run<a class="headerlink" href="#run_1" title="Permanent link">&para;</a></h4>
+<p>Run the agent with a single prompt (non-interactive).</p>
+<p>MESSAGE is the prompt to send to the agent.</p>
+<p>Run from your project directory to query the agent locally. A plain run
+starts a one-off server and shuts it down when it finishes; pass
+--start-server to keep the server running in the background instead.
+Once a server is running, later plain runs reuse it (and leave it
+running), so repeated requests are faster. Stop a persistent server with
+--stop-server. After 30 minutes idle, the next request restarts it.</p>
+<p>Use --url to query a deployed agent instead. Requires
+--mode to choose the protocol:</p>
+<p>a2a   A2A protocol
+  adk   ADK SSE (/run_sse, or :streamQuery for Agent Runtime)</p>
+<p>Supports --file for multimodal input and --session-id for
+conversation continuity. A local session lives in the running server's
+memory, so keep the server alive with --start-server to resume it
+across separate runs.</p>
+<p>Binary artifacts (images, audio, files) returned by the agent are
+saved under '.google-agents-cli/artifacts/' in the project root and
+listed in an 'Artifacts:' footer at the end of the response.
+File references returned by URI are not downloaded.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>agents-cli run [OPTIONS] MESSAGE
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>  --url TEXT         URL of a remote agent to query. If specified, no local
+<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>                     server is started.
+<a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>  --mode [a2a|adk]   Protocol for --url queries: &#39;a2a&#39; or &#39;adk&#39;. Required when
+<a id="__codelineno-57-4" name="__codelineno-57-4" href="#__codelineno-57-4"></a>                     using --url. Local runs always use ADK SSE.
+<a id="__codelineno-57-5" name="__codelineno-57-5" href="#__codelineno-57-5"></a>  --app-name TEXT    Agent name for remote ADK SSE / A2A endpoints. Defaults
+<a id="__codelineno-57-6" name="__codelineno-57-6" href="#__codelineno-57-6"></a>                     to the local project&#39;s agent_directory; specify to query
+<a id="__codelineno-57-7" name="__codelineno-57-7" href="#__codelineno-57-7"></a>                     a different agent or to run from outside a project.
+<a id="__codelineno-57-8" name="__codelineno-57-8" href="#__codelineno-57-8"></a>  -f, --file PATH    Attach a file (image, PDF, audio, video). Repeatable.
+<a id="__codelineno-57-9" name="__codelineno-57-9" href="#__codelineno-57-9"></a>  --session-id TEXT  Resume an existing session. A local session lives in the
+<a id="__codelineno-57-10" name="__codelineno-57-10" href="#__codelineno-57-10"></a>                     running server&#39;s memory — keep the server alive with
+<a id="__codelineno-57-11" name="__codelineno-57-11" href="#__codelineno-57-11"></a>                     --start-server to resume it across runs.
+<a id="__codelineno-57-12" name="__codelineno-57-12" href="#__codelineno-57-12"></a>  -H, --header TEXT  Custom HTTP header (format: &#39;Key: Value&#39;). Repeatable.
+<a id="__codelineno-57-13" name="__codelineno-57-13" href="#__codelineno-57-13"></a>                     Overrides auto-detected auth.
+<a id="__codelineno-57-14" name="__codelineno-57-14" href="#__codelineno-57-14"></a>  --start-server     Keep the local server running after execution. The server
+<a id="__codelineno-57-15" name="__codelineno-57-15" href="#__codelineno-57-15"></a>                     persists until stopped with --stop-server, giving
+<a id="__codelineno-57-16" name="__codelineno-57-16" href="#__codelineno-57-16"></a>                     subsequent run requests less overhead and keeping in-
+<a id="__codelineno-57-17" name="__codelineno-57-17" href="#__codelineno-57-17"></a>                     memory sessions alive between runs.
+<a id="__codelineno-57-18" name="__codelineno-57-18" href="#__codelineno-57-18"></a>  --stop-server      Stop the local background server and exit.
+<a id="__codelineno-57-19" name="__codelineno-57-19" href="#__codelineno-57-19"></a>  --otel-to-cloud    Export OpenTelemetry traces/logs to Google Cloud. Takes
+<a id="__codelineno-57-20" name="__codelineno-57-20" href="#__codelineno-57-20"></a>                     effect when the local server starts; ignored with --url.
+<a id="__codelineno-57-21" name="__codelineno-57-21" href="#__codelineno-57-21"></a>  -v, --verbose      Print full JSON event payloads.
+<a id="__codelineno-57-22" name="__codelineno-57-22" href="#__codelineno-57-22"></a>  --help             Show this message and exit.
+</code></pre></div>
+<h4 id="scaffold">scaffold<a class="headerlink" href="#scaffold" title="Permanent link">&para;</a></h4>
+<p>Scaffold, enhance, and upgrade agent projects.</p>
+<p>Subcommands:
+  create   Create a new agent project
+  enhance  Add deployment target or CI/CD to an existing project
+  upgrade  Upgrade project to a newer agents-cli version</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>agents-cli scaffold [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>  --help  Show this message and exit.
+</code></pre></div>
+<h5 id="create_1">create<a class="headerlink" href="#create_1" title="Permanent link">&para;</a></h5>
+<p>Create GCP-based AI agent projects from templates.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>agents-cli scaffold create [OPTIONS] [PROJECT_NAME]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>  -a, --agent TEXT                Template identifier to use. Can be a local
+<a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a>                                  agent name (e.g., `chat_agent`), a local
+<a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a>                                  path (`local@/path/to/template`), an `adk-
+<a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a>                                  samples` shortcut (e.g., `adk@data-
+<a id="__codelineno-61-5" name="__codelineno-61-5" href="#__codelineno-61-5"></a>                                  science`), or a remote Git URL. Both
+<a id="__codelineno-61-6" name="__codelineno-61-6" href="#__codelineno-61-6"></a>                                  shorthand (e.g.,
+<a id="__codelineno-61-7" name="__codelineno-61-7" href="#__codelineno-61-7"></a>                                  `github.com/org/repo/path@main`) and full
+<a id="__codelineno-61-8" name="__codelineno-61-8" href="#__codelineno-61-8"></a>                                  URLs from your browser (e.g., `https://githu
+<a id="__codelineno-61-9" name="__codelineno-61-9" href="#__codelineno-61-9"></a>                                  b.com/org/repo/tree/main/path`) are
+<a id="__codelineno-61-10" name="__codelineno-61-10" href="#__codelineno-61-10"></a>                                  supported. Lists available local templates
+<a id="__codelineno-61-11" name="__codelineno-61-11" href="#__codelineno-61-11"></a>                                  if omitted.
+<a id="__codelineno-61-12" name="__codelineno-61-12" href="#__codelineno-61-12"></a>  -o, --output-dir PATH           Output directory for the project (default:
+<a id="__codelineno-61-13" name="__codelineno-61-13" href="#__codelineno-61-13"></a>                                  current directory)
+<a id="__codelineno-61-14" name="__codelineno-61-14" href="#__codelineno-61-14"></a>  --agent-guidance-filename TEXT  Filename for agent guidance (e.g.,
+<a id="__codelineno-61-15" name="__codelineno-61-15" href="#__codelineno-61-15"></a>                                  GEMINI.md, CLAUDE.md, AGENTS.md)
+<a id="__codelineno-61-16" name="__codelineno-61-16" href="#__codelineno-61-16"></a>  -bt, --base-template TEXT       Base template to use (overrides template
+<a id="__codelineno-61-17" name="__codelineno-61-17" href="#__codelineno-61-17"></a>                                  default, only for remote templates)
+<a id="__codelineno-61-18" name="__codelineno-61-18" href="#__codelineno-61-18"></a>  --bq-analytics                  Include BigQuery Agent Analytics Plugin for
+<a id="__codelineno-61-19" name="__codelineno-61-19" href="#__codelineno-61-19"></a>                                  observability
+<a id="__codelineno-61-20" name="__codelineno-61-20" href="#__codelineno-61-20"></a>  -dir, --agent-directory TEXT    Name of the agent directory (overrides
+<a id="__codelineno-61-21" name="__codelineno-61-21" href="#__codelineno-61-21"></a>                                  template default)
+<a id="__codelineno-61-22" name="__codelineno-61-22" href="#__codelineno-61-22"></a>  -d, --deployment-target [agent_runtime|cloud_run|gke|none]
+<a id="__codelineno-61-23" name="__codelineno-61-23" href="#__codelineno-61-23"></a>                                  Deployment target name
+<a id="__codelineno-61-24" name="__codelineno-61-24" href="#__codelineno-61-24"></a>  --cicd-runner [google_cloud_build|github_actions|skip]
+<a id="__codelineno-61-25" name="__codelineno-61-25" href="#__codelineno-61-25"></a>                                  CI/CD runner to use
+<a id="__codelineno-61-26" name="__codelineno-61-26" href="#__codelineno-61-26"></a>  -p, --prototype                 Create minimal project without CI/CD or
+<a id="__codelineno-61-27" name="__codelineno-61-27" href="#__codelineno-61-27"></a>                                  Terraform infrastructure
+<a id="__codelineno-61-28" name="__codelineno-61-28" href="#__codelineno-61-28"></a>  --session-type [in_memory|cloud_sql|agent_platform_sessions]
+<a id="__codelineno-61-29" name="__codelineno-61-29" href="#__codelineno-61-29"></a>                                  Type of session storage to use
+<a id="__codelineno-61-30" name="__codelineno-61-30" href="#__codelineno-61-30"></a>  --debug                         Enable debug logging
+<a id="__codelineno-61-31" name="__codelineno-61-31" href="#__codelineno-61-31"></a>  -i, --interactive               Enable interactive prompts for human use
+<a id="__codelineno-61-32" name="__codelineno-61-32" href="#__codelineno-61-32"></a>  -y, --auto-approve, --yes       Non-interactive: skip prompts and use
+<a id="__codelineno-61-33" name="__codelineno-61-33" href="#__codelineno-61-33"></a>                                  defaults
+<a id="__codelineno-61-34" name="__codelineno-61-34" href="#__codelineno-61-34"></a>  --region TEXT                   GCP region for deployment (default: us-
+<a id="__codelineno-61-35" name="__codelineno-61-35" href="#__codelineno-61-35"></a>                                  east1)
+<a id="__codelineno-61-36" name="__codelineno-61-36" href="#__codelineno-61-36"></a>  -s, --skip-checks               Skip verification checks for GCP and Vertex
+<a id="__codelineno-61-37" name="__codelineno-61-37" href="#__codelineno-61-37"></a>                                  AI
+<a id="__codelineno-61-38" name="__codelineno-61-38" href="#__codelineno-61-38"></a>  -ag, --agent-garden             Deployed from Agent Garden - customizes
+<a id="__codelineno-61-39" name="__codelineno-61-39" href="#__codelineno-61-39"></a>                                  welcome messages
+<a id="__codelineno-61-40" name="__codelineno-61-40" href="#__codelineno-61-40"></a>  --adk                           Quickstart mode: adk + agent_runtime +
+<a id="__codelineno-61-41" name="__codelineno-61-41" href="#__codelineno-61-41"></a>                                  prototype, skips prompts
+<a id="__codelineno-61-42" name="__codelineno-61-42" href="#__codelineno-61-42"></a>  --help                          Show this message and exit.
+</code></pre></div>
+<h5 id="enhance">enhance<a class="headerlink" href="#enhance" title="Permanent link">&para;</a></h5>
+<p>Enhance your existing project with deployment, CI/CD, or RAG scaffolding.</p>
+<p>Applies agents-cli templates in-place to an existing project directory,
+adding infrastructure files without touching your agent logic.</p>
+<p>Run from inside your project directory (pass . as the path) or point to it
+explicitly. Use --dry-run to preview changes before applying them.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>agents-cli scaffold enhance [OPTIONS] [TEMPLATE_PATH]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>  -n, --name TEXT                 Project name for templating (defaults to
+<a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a>                                  current directory name)
+<a id="__codelineno-63-3" name="__codelineno-63-3" href="#__codelineno-63-3"></a>  --agent-guidance-filename TEXT  Filename for agent guidance (e.g.,
+<a id="__codelineno-63-4" name="__codelineno-63-4" href="#__codelineno-63-4"></a>                                  GEMINI.md, CLAUDE.md, AGENTS.md)
+<a id="__codelineno-63-5" name="__codelineno-63-5" href="#__codelineno-63-5"></a>  -bt, --base-template TEXT       Base template to use (overrides template
+<a id="__codelineno-63-6" name="__codelineno-63-6" href="#__codelineno-63-6"></a>                                  default, only for remote templates)
+<a id="__codelineno-63-7" name="__codelineno-63-7" href="#__codelineno-63-7"></a>  --bq-analytics                  Include BigQuery Agent Analytics Plugin for
+<a id="__codelineno-63-8" name="__codelineno-63-8" href="#__codelineno-63-8"></a>                                  observability
+<a id="__codelineno-63-9" name="__codelineno-63-9" href="#__codelineno-63-9"></a>  -dir, --agent-directory TEXT    Name of the agent directory (overrides
+<a id="__codelineno-63-10" name="__codelineno-63-10" href="#__codelineno-63-10"></a>                                  template default)
+<a id="__codelineno-63-11" name="__codelineno-63-11" href="#__codelineno-63-11"></a>  -d, --deployment-target [agent_runtime|cloud_run|gke|none]
+<a id="__codelineno-63-12" name="__codelineno-63-12" href="#__codelineno-63-12"></a>                                  Deployment target name
+<a id="__codelineno-63-13" name="__codelineno-63-13" href="#__codelineno-63-13"></a>  --cicd-runner [google_cloud_build|github_actions|skip]
+<a id="__codelineno-63-14" name="__codelineno-63-14" href="#__codelineno-63-14"></a>                                  CI/CD runner to use
+<a id="__codelineno-63-15" name="__codelineno-63-15" href="#__codelineno-63-15"></a>  -p, --prototype                 Create minimal project without CI/CD or
+<a id="__codelineno-63-16" name="__codelineno-63-16" href="#__codelineno-63-16"></a>                                  Terraform infrastructure
+<a id="__codelineno-63-17" name="__codelineno-63-17" href="#__codelineno-63-17"></a>  --session-type [in_memory|cloud_sql|agent_platform_sessions]
+<a id="__codelineno-63-18" name="__codelineno-63-18" href="#__codelineno-63-18"></a>                                  Type of session storage to use
+<a id="__codelineno-63-19" name="__codelineno-63-19" href="#__codelineno-63-19"></a>  --debug                         Enable debug logging
+<a id="__codelineno-63-20" name="__codelineno-63-20" href="#__codelineno-63-20"></a>  -i, --interactive               Enable interactive prompts for human use
+<a id="__codelineno-63-21" name="__codelineno-63-21" href="#__codelineno-63-21"></a>  -y, --auto-approve, --yes       Non-interactive: skip prompts and use
+<a id="__codelineno-63-22" name="__codelineno-63-22" href="#__codelineno-63-22"></a>                                  defaults
+<a id="__codelineno-63-23" name="__codelineno-63-23" href="#__codelineno-63-23"></a>  --region TEXT                   GCP region for deployment (default: us-
+<a id="__codelineno-63-24" name="__codelineno-63-24" href="#__codelineno-63-24"></a>                                  east1)
+<a id="__codelineno-63-25" name="__codelineno-63-25" href="#__codelineno-63-25"></a>  -s, --skip-checks               Skip verification checks for GCP and Vertex
+<a id="__codelineno-63-26" name="__codelineno-63-26" href="#__codelineno-63-26"></a>                                  AI
+<a id="__codelineno-63-27" name="__codelineno-63-27" href="#__codelineno-63-27"></a>  -ag, --agent-garden             Deployed from Agent Garden - customizes
+<a id="__codelineno-63-28" name="__codelineno-63-28" href="#__codelineno-63-28"></a>                                  welcome messages
+<a id="__codelineno-63-29" name="__codelineno-63-29" href="#__codelineno-63-29"></a>  --adk                           Shortcut for --base-template adk
+<a id="__codelineno-63-30" name="__codelineno-63-30" href="#__codelineno-63-30"></a>  --force                         Force overwrite all files (skip smart-merge
+<a id="__codelineno-63-31" name="__codelineno-63-31" href="#__codelineno-63-31"></a>                                  comparison)
+<a id="__codelineno-63-32" name="__codelineno-63-32" href="#__codelineno-63-32"></a>  --dry-run, --dryrun             Preview changes without applying them
+<a id="__codelineno-63-33" name="__codelineno-63-33" href="#__codelineno-63-33"></a>                                  (requires saved metadata)
+<a id="__codelineno-63-34" name="__codelineno-63-34" href="#__codelineno-63-34"></a>  --prefer-new                    Resolve conflicts in favor of the new
+<a id="__codelineno-63-35" name="__codelineno-63-35" href="#__codelineno-63-35"></a>                                  template version
+<a id="__codelineno-63-36" name="__codelineno-63-36" href="#__codelineno-63-36"></a>  --help                          Show this message and exit.
+</code></pre></div>
+<h5 id="upgrade">upgrade<a class="headerlink" href="#upgrade" title="Permanent link">&para;</a></h5>
+<p>Upgrade project to a newer agents-cli version.</p>
+<p>Applies a 3-way merge between the old template, the new template, and your
+project: unmodified files are auto-updated, your customizations are preserved,
+and conflicts are surfaced for manual resolution (with --interactive) or kept as-is.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>agents-cli scaffold upgrade [OPTIONS] [PROJECT_PATH]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>  --dry-run, --dryrun        Preview changes without applying them
+<a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>  -y, --auto-approve, --yes  Auto-apply non-conflicting changes without
+<a id="__codelineno-65-3" name="__codelineno-65-3" href="#__codelineno-65-3"></a>                             prompts
+<a id="__codelineno-65-4" name="__codelineno-65-4" href="#__codelineno-65-4"></a>  -i, --interactive          Enable interactive prompts for human use
+<a id="__codelineno-65-5" name="__codelineno-65-5" href="#__codelineno-65-5"></a>  --debug                    Enable debug logging
+<a id="__codelineno-65-6" name="__codelineno-65-6" href="#__codelineno-65-6"></a>  --help                     Show this message and exit.
+</code></pre></div>
+<h4 id="setup">setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h4>
+<p>Install agents-cli and skills to detected coding agents.</p>
+<p>Installs the agents-cli tool (via uv tool install) and detects
+installed coding agents (Claude Code, Antigravity CLI, Cursor,
+Windsurf, etc.) to install ADK development skills via npx skills.</p>
+<p>By default, skills are installed globally for all detected agents.
+Use --workspace to install at the project level instead.
+Use --agent to specify specific coding agents (e.g. --agent claude-code --agent cursor) or 'all'.
+Use --dry-run to preview what would happen without executing.
+Use --dev to install agents-cli as editable from the local repo (for contributors).
+Use --interactive / -i to enable interactive authentication if not already logged in.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>agents-cli setup [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>  --workspace           Install to project/workspace scope instead of global.
+<a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>                        Skills are installed relative to the current
+<a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a>                        directory.
+<a id="__codelineno-67-4" name="__codelineno-67-4" href="#__codelineno-67-4"></a>  --skip-auth           Skip the authentication step.
+<a id="__codelineno-67-5" name="__codelineno-67-5" href="#__codelineno-67-5"></a>  --dry-run, --dryrun   Show what would be done without making changes.
+<a id="__codelineno-67-6" name="__codelineno-67-6" href="#__codelineno-67-6"></a>  --dev                 Install as editable from the local repo (for
+<a id="__codelineno-67-7" name="__codelineno-67-7" href="#__codelineno-67-7"></a>                        contributors).
+<a id="__codelineno-67-8" name="__codelineno-67-8" href="#__codelineno-67-8"></a>  -i, --interactive     Enable interactive authentication prompt if not
+<a id="__codelineno-67-9" name="__codelineno-67-9" href="#__codelineno-67-9"></a>                        already authenticated.
+<a id="__codelineno-67-10" name="__codelineno-67-10" href="#__codelineno-67-10"></a>  --skills-source TEXT  Skills source: local path, GitHub owner/repo, or URL.
+<a id="__codelineno-67-11" name="__codelineno-67-11" href="#__codelineno-67-11"></a>                        Overrides the bundled skills.
+<a id="__codelineno-67-12" name="__codelineno-67-12" href="#__codelineno-67-12"></a>  --agent TEXT          Specify the agent to install skills to (e.g. --agent
+<a id="__codelineno-67-13" name="__codelineno-67-13" href="#__codelineno-67-13"></a>                        claude-code --agent cursor). Use &#39;all&#39; to install for
+<a id="__codelineno-67-14" name="__codelineno-67-14" href="#__codelineno-67-14"></a>                        all supported agents.
+<a id="__codelineno-67-15" name="__codelineno-67-15" href="#__codelineno-67-15"></a>  --help                Show this message and exit.
+</code></pre></div>
+<h4 id="update">update<a class="headerlink" href="#update" title="Permanent link">&para;</a></h4>
+<p>Force reinstall agents skills to all detected coding agents.</p>
+<p>Updates all installed skills to their latest versions via npx skills.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>agents-cli update [OPTIONS]
+</code></pre></div>
+<p><strong>Options:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>  --workspace                Update workspace-level skills instead of global.
+<a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a>  -i, --interactive          Enable interactive confirmation prompt.
+<a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a>  -y, --yes, --auto-approve  Skip confirmation prompt.
+<a id="__codelineno-69-4" name="__codelineno-69-4" href="#__codelineno-69-4"></a>  --help                     Show this message and exit.
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="フッター" >
+        
+          
+          <a href="../reference/" class="md-footer__link md-footer__link--prev" aria-label="前: リファレンス">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                前
+              </span>
+              <div class="md-ellipsis">
+                リファレンス
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../reference/skills/" class="md-footer__link md-footer__link--next" aria-label="次: スキル一覧">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                次
+              </span>
+              <div class="md-ellipsis">
+                スキル一覧
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.code.annotate", "content.code.select", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.instant", "navigation.tabs", "navigation.path", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/persona.js"></script>
+      
+        <script src="../javascripts/lifecycle.js"></script>
+      
+    
+  </body>
+</html>

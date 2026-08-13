@@ -1,0 +1,2303 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ADKエージェント開発ライフサイクル全体を統合管理するCLI">
+      
+      
+      
+      
+        <link rel="prev" href="../getting-started/">
+      
+      
+        <link rel="next" href="../quickstart-tutorial/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo_sm.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>ライフサイクル - agents-cli (日本語ドキュメント)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans JP";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../.." title="agents-cli (日本語ドキュメント)" class="md-header__button md-logo" aria-label="agents-cli (日本語ドキュメント)" data-md-component="logo">
+      
+  <img src="../../assets/logo_sm.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            agents-cli (日本語ドキュメント)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ライフサイクル
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="ダークモードに切り替え"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替え" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="ライトモードに切り替え"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替え" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/adk-labs/agents-cli-docs-ja" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.01 8.01 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27s-1.36.09-2 .27c-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8"/></svg>
+  </div>
+  <div class="md-source__repository">
+    adk-labs/agents-cli-docs-ja
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../getting-started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  ガイド
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  リファレンス
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="agents-cli (日本語ドキュメント)" class="md-nav__button md-logo" aria-label="agents-cli (日本語ドキュメント)" data-md-component="logo">
+      
+  <img src="../../assets/logo_sm.png" alt="logo">
+
+    </a>
+    agents-cli (日本語ドキュメント)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/adk-labs/agents-cli-docs-ja" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.01 8.01 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27s-1.36.09-2 .27c-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8"/></svg>
+  </div>
+  <div class="md-source__repository">
+    adk-labs/agents-cli-docs-ja
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ガイド
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ガイド
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    概要
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ライフサイクル
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ライフサイクル
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1つの調査例を見る
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        循環する4つのCLI動詞
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ループがない場合に発生する問題
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8つのフェーズ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8つのフェーズ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0 · 仕様 (Spec)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-scaffold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · スキャフォールド (Scaffold)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · 構築 (Build)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-orchestrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · オーケストレーション (Orchestrate)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-evaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · 評価 (Evaluate)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · デプロイ (Deploy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-publish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 · 公開 (Publish)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-observe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7 · 可観測性 (Observe)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2つの実行方法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        さらに詳しく知るには
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    チュートリアル: 最初のエージェントを構築
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hands-on-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    チュートリアル: 手動ワークフロー
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ユースケース
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    認証
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開発
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    開発
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開発ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    プロジェクト構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    エージェントテンプレート
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    評価
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    評価
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    評価ガイド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    デプロイと運用
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    デプロイと運用
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    デプロイ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cicd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD & 本番運用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../observability/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    オブザーバビリティ
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    オブザーバビリティ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../observability/cloud-trace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud Trace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../observability/bq-agent-analytics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BigQuery プラグイン
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リファレンス
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    リファレンス
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI仕様
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    スキル一覧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このプロジェクトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/from-agent-starter-pack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Starter Pack からの移行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/eval-dataset-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    評価データセットの移行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1つの調査例を見る
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        循環する4つのCLI動詞
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ループがない場合に発生する問題
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8つのフェーズ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8つのフェーズ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0 · 仕様 (Spec)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-scaffold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · スキャフォールド (Scaffold)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · 構築 (Build)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-orchestrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · オーケストレーション (Orchestrate)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-evaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · 評価 (Evaluate)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · デプロイ (Deploy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-publish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 · 公開 (Publish)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-observe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7 · 可観測性 (Observe)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2つの実行方法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        さらに詳しく知るには
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="ナビゲーション" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    ホーム
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../getting-started/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    ガイド
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../getting-started/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    概要
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">ライフサイクル<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>Agents CLI は1つの重要なコンセプトに基づいています。それは<strong>「ノートブック上で良好に動く状態」</strong>から<strong>「本番環境での稼働」</strong>までのループです。このページはその全体像を示すマップです。</p>
+<h2 id="1">1つの調査例を見る<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>障害復旧エージェントを想像してみてください。本番稼働から1週間が経過し、アラートが発報されました:</p>
+<div id="lifecycle-anim-transcript" class="lifecycle-anim" aria-label="Auto-playing transcript of an outage investigation"></div>
+
+<p>この調査にかかった時間は <strong>4.3秒</strong> です。<em>エージェント自体</em>に特別な点はありません — ほとんどのエージェントフレームワークで表現可能です。特別なのはその周辺のすべての仕組みです。破滅的な修復を推奨した場合には出荷を許可しない評価ルーブリック、ランブック検索が誤ったセクションを返すのを検出する CI チェック、明日何か問題が発生した際にこの調査をそのままリプレイできるトレースなどです。</p>
+<p>これがループの真価です。</p>
+<h2 id="4cli">循環する4つのCLI動詞<a class="headerlink" href="#4cli" title="Permanent link">&para;</a></h2>
+<div id="lifecycle-anim-loop" class="lifecycle-anim" aria-label="The four CLI verbs in a continuous loop"></div>
+
+<p><code>scaffold</code>、<code>eval</code>、<code>deploy</code>、<code>observe</code> — これらが永遠に循環します。あなたが仕様を記述し、このループがリリースすべきでないものを検知し、テストをパスしたものをデプロイし、次の反復がよりスマートになるようその後の挙動を可視化します。</p>
+<h2 id="_2">ループがない場合に発生する問題<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>ほとんどのエージェントのデモはプロンプトの作成で終わります。巧みな指示を書き、モデルがノートブック上で見栄えのする結果を返し、それをチーム用にスクリーンショットします。しかし、本番環境へのデプロイには現実世界の課題が伴います。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ループがない場合</th>
+<th>Agents CLI を使用する場合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ハルシネーションによる修復</strong></td>
+<td>発覚は顧客側での発生後</td>
+<td>評価ルーブリックがマージ前に PR をブロック</td>
+</tr>
+<tr>
+<td><strong>ツール API の変更</strong></td>
+<td>午前2時の障害対応、エージェントはサイレントに破損</td>
+<td>CI 統合テストがスキーマの乖離を検出</td>
+</tr>
+<tr>
+<td><strong>本番環境での誤用</strong></td>
+<td>リプレイ不可、テレメトリなし</td>
+<td>Cloud Trace + BigQuery 分析により1時間以内に表面化</td>
+</tr>
+<tr>
+<td><strong>喋りすぎなツールによるコスト急増</strong></td>
+<td>来月の請求書が最初のアラート</td>
+<td>ツールごとのスパンカウントによりループを数時間で発見</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8">8つのフェーズ<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<p>ゆっくりたどると、ループは8つのフェーズに拡張されます。各フェーズには <a href="../../reference/skills/">スキル</a> にエンコードされたベストプラクティスがあり、コーディングエージェントが最適な選択を行えるようサポートします。</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>フェーズ</th>
+<th>概要</th>
+<th>CLI動詞</th>
+<th>スキル</th>
+<th>詳細</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><strong>仕様 (Spec)</strong></td>
+<td><code>.agents-cli-spec.md</code> を記述します。他のフェーズはここから派生します。</td>
+<td>—</td>
+<td><code>google-agents-cli-workflow</code></td>
+<td><a href="../development/">開発ガイド</a></td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>スキャフォールド (Scaffold)</strong></td>
+<td>仕様を本番構成のプロジェクト (~72ファイル) に変換します。</td>
+<td><code>scaffold create</code></td>
+<td><code>google-agents-cli-scaffold</code></td>
+<td><a href="../templates/">テンプレート</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>構築 (Build)</strong></td>
+<td>エージェント本体 (モデル、指示、ツール、<code>App</code> ラッパー) を作成します。</td>
+<td>—</td>
+<td><code>google-agents-cli-adk-code</code></td>
+<td><a href="../project-structure/">プロジェクト構造</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>オーケストレーション (Orchestrate)</strong></td>
+<td>1つのエージェントがチームに拡大した際、スペシャリストを構成します。</td>
+<td>—</td>
+<td><code>google-agents-cli-adk-code</code></td>
+<td><a href="../project-structure/">プロジェクト構造</a></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>評価 (Evaluate)</strong></td>
+<td>デプロイごとにデータセットに対してエージェントを採点します。</td>
+<td><code>eval generate</code>、<code>eval grade</code>、さらに <code>eval dataset synthesize</code>、<code>eval compare</code>、<code>eval analyze</code>、<code>eval metric list</code>、<code>eval optimize</code></td>
+<td><code>google-agents-cli-eval</code></td>
+<td><a href="../evaluation/">評価</a></td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>デプロイ (Deploy)</strong></td>
+<td>Agent Runtime、Cloud Run、または GKE にリリースします。</td>
+<td><code>deploy</code></td>
+<td><code>google-agents-cli-deploy</code></td>
+<td><a href="../deployment/">デプロイ</a></td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>公開 (Publish)</strong></td>
+<td>他のエージェントがこれを見つけられるよう Gemini Enterprise に登録します。</td>
+<td><code>publish</code></td>
+<td><code>google-agents-cli-publish</code></td>
+<td><a href="../cicd/">CI/CD</a></td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>可観測性 (Observe)</strong></td>
+<td>Cloud Trace + BigQuery 分析。本番データが明日のデータセットを補給します。</td>
+<td>—</td>
+<td><code>google-agents-cli-observability</code></td>
+<td><a href="../observability/">可観測性</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="0-spec">0 · 仕様 (Spec)<a class="headerlink" href="#0-spec" title="Permanent link">&para;</a></h3>
+<p><code>.agents-cli-spec.md</code> にエージェントのツール、制約事項、成功基準を定義します。ライフサイクルの残りのすべてのフェーズがこのファイルを参照します (スキャフォールドのフラグ、評価ルーブリック、セーフティガードレール、本番環境で監視するトレース属性など)。白紙から始める必要はありません。<a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/agent-garden">Agent Garden</a> で目的に近い既存テンプレートを閲覧し、カスタマイズしてください。</p>
+<p>一般的な仕様書は、1画面に収まる程度の Markdown です:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gh"># .agents-cli-spec.md — outage-recovery-bot</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gu">## Tools</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>| Tool                                    | Backing service       |
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>| --------------------------------------- | --------------------- |
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>| <span class="sb">`query_logs(service, severity)`</span>         | Cloud Logging         |
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>| <span class="sb">`check_metrics(service, metric)`</span>        | Cloud Monitoring      |
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>| <span class="sb">`search_runbook(query)`</span>                 | Vector Search         |
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="gu">## Constraints</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">1.</span> 参照したランブックのセクションを常に引用すること。
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="k">2.</span> 観察された症状に対してランブックが明示的に認可していない限り、
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>   破滅的な修復手順を絶対に推奨しないこと。
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="gu">## Success criteria</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="k">-</span><span class="w"> </span>インシデントの 80% 以上で、根本原因が正解データと一致する診断を得ること
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="k">-</span><span class="w"> </span>推奨事項の 100% がランブックのセクションを引用していること
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="k">-</span><span class="w"> </span>ランブックの認可なしの破滅的な推奨事項が 0 件であること
+</code></pre></div>
+<h3 id="1-scaffold">1 · スキャフォールド (Scaffold)<a class="headerlink" href="#1-scaffold" title="Permanent link">&para;</a></h3>
+<p>1つのコマンドで仕様を読み込み、プロジェクトを出力します (エージェントコード、テスト、評価ボイラープレート、Terraform、CI/CD ワークフロー、デプロイマニフェスト)。フラグは不要についているわけではなく、各フラグが選択したライフサイクルに合わせてスキャフォールドを拡張または縮小します。</p>
+<div id="lifecycle-anim-scaffold" class="lifecycle-anim" aria-label="Scaffold wizard — toggle flags, watch the command and file count update"></div>
+
+<p>完全なセットアップでは、エージェントコード、評価ボイラープレート、Terraform、GitHub Actions ワークフロー、デプロイマニフェストなど <strong>約72個のファイル</strong> が生成されます。不要な部分をスキップしてスリム化することも可能です。全リストについては <a href="../templates/">テンプレート</a> を参照してください。</p>
+<h3 id="2-build">2 · 構築 (Build)<a class="headerlink" href="#2-build" title="Permanent link">&para;</a></h3>
+<p>すべての ADK エージェントは、モデル、指示 (instruction)、ツール一覧、およびそれらをラップする <code>App</code> の4つの要素に集約されます。エージェントの本体はわずか30行程度のコードであり、重要な処理はツール内部で行われます。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">google.adk.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">google.adk.apps</span><span class="w"> </span><span class="kn">import</span> <span class="n">App</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">google.adk.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gemini</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">root_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;root_agent&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">model</span><span class="o">=</span><span class="n">Gemini</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gemini-3.6-flash&quot;</span><span class="p">),</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">instruction</span><span class="o">=</span><span class="s2">&quot;You are an SRE outage-recovery assistant...&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">query_logs</span><span class="p">,</span> <span class="n">check_metrics</span><span class="p">,</span> <span class="n">search_runbook</span><span class="p">],</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">app</span> <span class="o">=</span> <span class="n">App</span><span class="p">(</span><span class="n">root_agent</span><span class="o">=</span><span class="n">root_agent</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;app&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Gemini に限定されるわけではありません — モデルの行を ADK がサポートする任意のプロバイダに変更できます (<a href="https://cloud.google.com/model-garden">Model Garden</a> では Anthropic Claude、OpenAI GPT などがカバーされています)。ライフサイクルの残りの部分は、プロバイダに関係なく同一に動作します。</p>
+<p>ステートフルなエージェントは、Agent Platform の追加の2つの機能を活用できます:</p>
+<ul>
+<li><strong>マネージドセッションストレージ</strong>: 再起動後も生存し、水平スケール可能な会話状態を提供します — インメモリのデフォルトの代わりに、スキャフォールド時に <code>--session-type agent_platform_sessions</code> を指定して選択します。</li>
+<li><strong><a href="https://cloud.google.com/agent-builder/docs/memory">Memory Bank</a></strong>: セッションを跨いだ<em>長期</em>メモリを提供します (SRE ボットが「これは前四半期のインシデントに似ている」と認識するなど)。<code>from google.adk.memory import VertexAiMemoryBankService</code> 経由で接続すると、ユーザー、セッション、またはアプリに紐づく永続ストレージが利用可能になります。</li>
+</ul>
+<p>単一の HTTP リクエストに収まらないワークフロー (長時間の調査、マルチステップのバッチ処理) の場合、Agent Runtime がエージェントの状態を保持するため、デプロイや再起動によって進行状況が失われることはありません。</p>
+<div id="lifecycle-anim-models" class="lifecycle-anim" aria-label="Same prompt, three model providers — illustrative side-by-side"></div>
+
+<p>以下は、同じエージェント本体が別のインシデントにエンドツーエンドで対応する例です:</p>
+<div id="lifecycle-anim-playground" class="lifecycle-anim" aria-label="Inline playground — payments triage scenario, click to step through"></div>
+
+<h3 id="3-orchestrate">3 · オーケストレーション (Orchestrate)<a class="headerlink" href="#3-orchestrate" title="Permanent link">&para;</a></h3>
+<p>単一のエージェント構成は問題の規模が小さい場合に有効です。本番環境の現実的なエージェントは、オーケストレーターがそれぞれの狭いツール領域を持つスペシャリストに作業をルーティングする<strong>チーム</strong>へと成長します。</p>
+<div id="lifecycle-anim-team" class="lifecycle-anim" aria-label="Team diagram — orchestrator routes work to investigator, diagnoser, and remediator"></div>
+
+<p>チーム分割は、評価、デプロイ、可観測性の観点から3つの理由で役立ちます。プロンプトを小さくすることで各エージェントの信頼性が向上し、ツール領域を分割することでエージェントごとのガードレールを適用でき、トレースによってどのサブエージェントが誤った判断をしたかを正確に特定できます。</p>
+<p>チームが複数プロセスにまたがる場合、あるいは自チームが所有していないエージェントを呼び出す場合は、ワイヤーフォーマットとして <strong><a href="https://a2a-protocol.org/">A2A プロトコル</a></strong> を使用します。A2A はすべての ADK エージェントに組み込まれているため、通常通りスキャフォールドするだけです (<code>--agent adk</code>)。Agents CLI で構築されたかどうかにかかわらず、すべての A2A 互換エージェントがあなたのエージェントを呼び出せ、またあなたのエージェントから呼び出すことができます。</p>
+<h3 id="4-evaluate">4 · 評価 (Evaluate)<a class="headerlink" href="#4-evaluate" title="Permanent link">&para;</a></h3>
+<p>これはほとんどのエージェントデモで省略されがちなフェーズです。<code>agents-cli eval generate</code> に続けて <code>agents-cli eval grade</code> を実行することで、稼働中のエージェントに対してデータセットを実行し、LLM ジャッジにルーブリックに基づいて各レスポンスを評価させ、自信を持って説明できるスコアを取得できます。</p>
+<div id="lifecycle-anim-eval" class="lifecycle-anim" aria-label="Eval-fix loop — click 'apply fix' to see one case flip from failing to passing"></div>
+
+<p><code>agents-cli eval grade</code> ループの反復は 5〜10回以上になることが予想されます。修正を行うたびにスコアが向上し、再実行して、しきい値を超えた時点でデプロイします。以下は、ルーブリックが最も頻繁に検出する4つの失敗モードです。</p>
+<div id="lifecycle-anim-failures" class="lifecycle-anim" aria-label="Common agent failures and the eval rubric that catches each"></div>
+
+<p>メトリクス、データセットスキーマ、および詳細な方法論については <a href="../evaluation/">評価ガイド</a> を参照してください。</p>
+<h3 id="5-deploy">5 · デプロイ (Deploy)<a class="headerlink" href="#5-deploy" title="Permanent link">&para;</a></h3>
+<p>同じエージェントコードを3つの異なる環境にデプロイできます。<code>agents-cli deploy</code> は、スキャフォールド時に指定されたターゲットに基づいて処理を実行します。<strong>ターゲットを選択して <code>--dry-run</code> が出力する内容と後続のステップを確認してください:</strong></p>
+<div id="lifecycle-anim-deploy" class="lifecycle-anim" aria-label="Deploy target picker — choose a runtime to see the dry-run + pipeline"></div>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>agents-cli<span class="w"> </span>deploy<span class="w"> </span>--dry-run<span class="w">        </span><span class="c1"># パイプラインをプレビュー</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>agents-cli<span class="w"> </span>deploy<span class="w">                  </span><span class="c1"># デプロイを実行</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>agents-cli<span class="w"> </span>deploy<span class="w"> </span>--no-wait<span class="w">        </span><span class="c1"># 即座に復帰。後で --status で確認</span>
+</code></pre></div>
+<p>各ターゲットは周辺の本番環境用プリミティブを継承します:</p>
+<ul>
+<li><strong>エージェントごとのサービスアカウント</strong> — <code>agents-cli deploy --agent-identity</code> で有効化すると、デプロイされたエージェントは固有の GCP アイデンティティとして実行されます。通常の IAM を使用して、実際に呼び出せる対象 (BigQuery データセット、バケット、API) を制限できます。破滅的な修復をブロックする評価ルーブリックにはセーフティネットがあります。アイデンティティに権限がない場合、エージェントは物理的に <code>kubectl delete</code> を実行できません。</li>
+<li><strong><a href="https://cloud.google.com/iap">Identity-Aware Proxy (IAP)</a></strong> — <code>--iap</code> フラグを使用して、Cloud Run デプロイを Google Workspace SSO の保護下に置くことができます。社内専用エージェントがパブリックインターネットに露出する懸念がなくなります。</li>
+<li><strong><a href="https://cloud.google.com/iam/docs/workload-identity-federation">Workload Identity Federation</a></strong> — スキャフォールドされた <code>pr_checks.yaml</code> は WIF 経由で GitHub Actions を GCP に対して認証するため、リポジトリ内にサービスアカウントキーを保持する必要がありません。</li>
+</ul>
+<p>ターゲットごとの詳細な手順については <a href="../deployment/">デプロイ</a> を参照してください。</p>
+<h3 id="6-publish">6 · 公開 (Publish)<a class="headerlink" href="#6-publish" title="Permanent link">&para;</a></h3>
+<p>エージェントをデプロイすると URL 経由でアクセス可能になります。公開 (Publish) は別ステップであり、他のエージェント (またはカタログを閲覧する人間) が見つけられるように Gemini Enterprise に登録する処理です。</p>
+<div id="lifecycle-anim-publish" class="lifecycle-anim" aria-label="The agent's listing in Gemini Enterprise after publish"></div>
+
+<p>2つの登録モードがあります: <strong>ADK</strong> (デプロイされた Agent Runtime インスタンスを公開) および <strong><a href="https://a2a-protocol.org/">A2A</a></strong> (A2A 互換の HTTP エンドポイントを公開、ADK は不要 — 任意のフレームワークで構築されたエージェントで動作)。</p>
+<h3 id="7-observe">7 · 可観測性 (Observe)<a class="headerlink" href="#7-observe" title="Permanent link">&para;</a></h3>
+<p>エージェントが本番稼働すると、すべての呼び出しによって Cloud Trace スパンが送信されます。すべてのツール呼び出し、モデル生成、サブエージェントへのハンドオフが可視化されます。<strong>下のスパンにホバーして属性を確認してください。</strong></p>
+<div id="lifecycle-anim-trace" class="lifecycle-anim" aria-label="Trace waterfall — bars draw in left-to-right showing the orchestrator and its sub-agents; hover to inspect"></div>
+
+<p>可観測性は本番環境で動作するすべてのエージェントにとって不可欠です。評価で見落とした機能退行、喋りすぎなツールによるコスト急増、ユーザーによるセーフティプロンプトの回避などをキャッチするのに役立ちます。スキャフォールド時に <code>--bq-analytics</code> を有効にすると、すべてのプロンプトとレスポンスがオフライン分析用に BigQuery に保存されます。</p>
+<p>同じデータがループを締めくくります。本番環境のトラフィックが明日のデータセットを供給します。評価スコアは継続的に再計算されるため、機能退行は数ヶ月ではなく数日で表面化します。</p>
+<div id="lifecycle-anim-rolling" class="lifecycle-anim" aria-label="Rolling production eval score over the last ten days, with annotated regression and deploy events"></div>
+
+<p>詳細なセットアップについては <a href="../observability/">可観測性</a> を参照してください。</p>
+<h2 id="2">2つの実行方法<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<div class="lc-tabs-bare">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">コーディングエージェントに依頼する</label><label for="__tabbed_1_2">CLI を自分で操作する</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>標準的なアプローチです。コーディングエージェントがスキルを読み込み、各フェーズで適切な CLI コマンドを選択します。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Build me an outage-recovery agent. It should investigate incidents
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>using logs, metrics, and runbooks, and recommend remediations
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>that cite a runbook section. Deploy it to Agent Runtime.
+</code></pre></div>
+<p>コーディングエージェントは以下の手順を実行します:</p>
+<ol>
+<li>ツールと制約事項を記述した <code>.agents-cli-spec.md</code> を作成</li>
+<li><code>agents-cli scaffold create … --agent adk --deployment-target agent_runtime</code> を実行 (RAG はクローン＆学習レシピです — RAG サンプルを適応させてください。<a href="../templates/#rag-retrieval-augmented-generation">テンプレート</a> を参照)</li>
+<li>エージェント本体とツールを作成</li>
+<li>データセットケースを作成</li>
+<li><code>agents-cli eval generate</code> に続けて <code>agents-cli eval grade</code> を実行し、スコアがしきい値を超えるまで <code>eval grade</code> で反復処理</li>
+<li><code>agents-cli deploy</code> を実行</li>
+<li>トレース + アナリティクスを接続し、URL を提示</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>すべてのコマンドはスタンドアロンで動作します。自分でコマンドを入力したい場合は、コーディングエージェントを省略できます。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># フェーズ 1: スキャフォールド</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>agents-cli<span class="w"> </span>scaffold<span class="w"> </span>create<span class="w"> </span>outage-recovery-bot<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span>--agent<span class="w"> </span>adk<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span>--deployment-target<span class="w"> </span>agent_runtime<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span>--cicd-runner<span class="w"> </span>github_actions<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span>--bq-analytics
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="nb">cd</span><span class="w"> </span>outage-recovery-bot<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>agents-cli<span class="w"> </span>install
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># フェーズ 2-3: 構築 &amp; オーケストレーション (app/agent.py を編集)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>agents-cli<span class="w"> </span>playground<span class="w">       </span><span class="c1"># :8080 でローカル Web プレイグラウンドを起動</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="c1"># フェーズ 4: 評価</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>dataset<span class="w"> </span>synthesize<span class="w"> </span>--count<span class="w"> </span><span class="m">10</span><span class="w">  </span><span class="c1"># オプション: データセットのコールドスタート</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>generate
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>grade<span class="w">                          </span><span class="c1"># 評価スコアがしきい値を超えるまで繰り返す</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>compare<span class="w"> </span>prev.json<span class="w"> </span>latest.json<span class="w">  </span><span class="c1"># 修正が実際に効果があったか確認</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>analyze<span class="w"> </span>--eval-result<span class="w"> </span>latest.json<span class="w">  </span><span class="c1"># 残りの失敗モードをクラスタリング</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>agents-cli<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>optimize<span class="w">                       </span><span class="c1"># オプション: 評価データを使用してプロンプトを自動チューニング</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="c1"># フェーズ 5: デプロイ</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>agents-cli<span class="w"> </span>deploy<span class="w"> </span>--dry-run
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>agents-cli<span class="w"> </span>deploy
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="c1"># フェーズ 6: 公開 (オプション)</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>agents-cli<span class="w"> </span>publish<span class="w"> </span>gemini-enterprise
+</code></pre></div>
+<p>エンドツーエンドの完全な手順については、<a href="../hands-on-tutorial/">手動ワークフローチュートリアル</a> を参照してください。</p>
+</div>
+</div>
+</div>
+</div>
+<h2 id="_3">さらに詳しく知るには<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../templates/">テンプレート</a> — スキャフォールドテンプレート (<code>adk</code>) と RAG クローン＆学習レシピ</li>
+<li><a href="../project-structure/">プロジェクト構造</a> — 生成された各ファイルの役割</li>
+<li><a href="../development/">開発ガイド</a> — 日常のワークフロー</li>
+<li><a href="../evaluation/">評価ガイド</a> — データセットスキーマと評価・修正ループ</li>
+<li><a href="../deployment/">デプロイ</a> — ターゲットごとの解説</li>
+<li><a href="../cicd/">CI/CD &amp; 本番環境</a> — PR から本番環境への完全なパス</li>
+<li><a href="../observability/">可観測性</a> — Cloud Trace、BigQuery アナリティクス、サードパーティツール</li>
+<li><a href="../../cli/">CLI リファレンス</a> — すべてのコマンドとフラグ</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="フッター" >
+        
+          
+          <a href="../getting-started/" class="md-footer__link md-footer__link--prev" aria-label="前: はじめに">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                前
+              </span>
+              <div class="md-ellipsis">
+                はじめに
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../quickstart-tutorial/" class="md-footer__link md-footer__link--next" aria-label="次: チュートリアル: 最初のエージェントを構築">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                次
+              </span>
+              <div class="md-ellipsis">
+                チュートリアル: 最初のエージェントを構築
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.code.annotate", "content.code.select", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.instant", "navigation.tabs", "navigation.path", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/persona.js"></script>
+      
+        <script src="../../javascripts/lifecycle.js"></script>
+      
+    
+  </body>
+</html>
