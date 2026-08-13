@@ -43,7 +43,7 @@ dependencies = [
     "google-api-python-client",
     "google-cloud-aiplatform",
     "google-cloud-storage",
-    "google-cloud-resourcemanager",
+    "google-cloud-resource-manager",
     "google-cloud-run",
     "google-cloud-trace",
     "google-cloud-logging",
