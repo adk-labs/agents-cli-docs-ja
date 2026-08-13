@@ -1,0 +1,117 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+site_name: agents-cli (日本語ドキュメント)
+site_description: ADKエージェント開発ライフサイクル全体を統合管理するCLI
+docs_dir: src
+site_dir: ../site-ja
+
+theme:
+  name: material
+  logo: assets/logo_sm.png
+  favicon: assets/logo_sm.png
+  language: ja
+  icon:
+    repo: octicons/mark-github-16
+  font:
+    text: Noto Sans JP
+    code: JetBrains Mono
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: ダークモードに切り替え
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: ライトモードに切り替え
+  features:
+    - content.code.copy
+    - content.code.annotate
+    - content.code.select
+    - content.tabs.link
+    - content.tooltips
+    - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.instant
+    - navigation.tabs
+    - navigation.path
+    - toc.follow
+
+plugins:
+  - search
+
+markdown_extensions:
+  - mkdocs-click
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+repo_url: https://github.com/adk-labs/agents-cli-docs-ja
+repo_name: adk-labs/agents-cli-docs-ja
+
+extra_css:
+  - stylesheets/custom.css
+
+extra_javascript:
+  - javascripts/persona.js
+  - javascripts/lifecycle.js
+
+nav:
+  - ホーム: index.md
+  - ガイド:
+    - 概要:
+      - はじめに: guide/getting-started.md
+      - ライフサイクル: guide/lifecycle.md
+      - "チュートリアル: 最初のエージェントを構築": guide/quickstart-tutorial.md
+      - "チュートリアル: 手動ワークフロー": guide/hands-on-tutorial.md
+      - ユースケース: guide/use-cases.md
+      - 認証: guide/authentication.md
+    - 開発:
+      - 開発ガイド: guide/development.md
+      - プロジェクト構造: guide/project-structure.md
+      - エージェントテンプレート: guide/templates.md
+    - 評価:
+      - 評価ガイド: guide/evaluation.md
+    - デプロイと運用:
+      - デプロイ: guide/deployment.md
+      - "CI/CD & 本番運用": guide/cicd.md
+      - オブザーバビリティ:
+        - 概要: guide/observability/index.md
+        - Cloud Trace: guide/observability/cloud-trace.md
+        - BigQuery プラグイン: guide/observability/bq-agent-analytics.md
+  - リファレンス:
+    - reference/index.md
+    - CLI仕様: cli/index.md
+    - スキル一覧: reference/skills.md
+    - このプロジェクトについて: reference/about.md
+    - Agent Starter Pack からの移行: reference/from-agent-starter-pack.md
+    - 評価データセットの移行: reference/eval-dataset-migration.md
