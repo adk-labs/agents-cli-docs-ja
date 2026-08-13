@@ -41,6 +41,13 @@ dependencies = [
     "requests",
     "google-auth",
     "google-api-python-client",
+    "google-cloud-aiplatform",
+    "google-cloud-storage",
+    "google-cloud-resourcemanager",
+    "google-cloud-run",
+    "google-cloud-trace",
+    "google-cloud-logging",
+    "google-cloud-bigquery",
 ]
 
 [project.scripts]
