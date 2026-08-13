@@ -48,6 +48,7 @@ dependencies = [
     "google-cloud-trace",
     "google-cloud-logging",
     "google-cloud-bigquery",
+    "a2a-sdk",
 ]
 
 [project.scripts]
